@@ -17,6 +17,7 @@
 		40576BC9210B3C9B00A32A76 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40576BC8210B3C9B00A32A76 /* Constants.swift */; };
 		40576BCB210B41A100A32A76 /* CollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40576BCA210B41A100A32A76 /* CollectionReference.swift */; };
 		40576BCD210B429600A32A76 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40576BCC210B429600A32A76 /* HelperFunctions.swift */; };
+		4069BB3C219F0E9A00397426 /* FinishRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4069BB3B219F0E9A00397426 /* FinishRegistrationViewController.swift */; };
 		7165766A062DF42D97AF8809 /* Pods_iChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F528CC8013958A8FD1BF0A0E /* Pods_iChat.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		40576BC8210B3C9B00A32A76 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		40576BCA210B41A100A32A76 /* CollectionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReference.swift; sourceTree = "<group>"; };
 		40576BCC210B429600A32A76 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
+		4069BB3B219F0E9A00397426 /* FinishRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishRegistrationViewController.swift; sourceTree = "<group>"; };
 		54DE3B99A2736340B3B39ADF /* Pods-iChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iChat/Pods-iChat.debug.xcconfig"; sourceTree = "<group>"; };
 		F1DCBBF9CAA17551E95E42C7 /* Pods-iChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-iChat/Pods-iChat.release.xcconfig"; sourceTree = "<group>"; };
 		F528CC8013958A8FD1BF0A0E /* Pods_iChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,6 +73,7 @@
 		40576BAC2108F7A500A32A76 /* iChat */ = {
 			isa = PBXGroup;
 			children = (
+				4069BB3D219F0EE400397426 /* Classes */,
 				40576BC7210B3C2A00A32A76 /* Model */,
 				40576BC5210B3C0C00A32A76 /* View */,
 				40576BC6210B3C1900A32A76 /* Controllers */,
@@ -95,6 +98,7 @@
 			children = (
 				40576BAD2108F7A500A32A76 /* AppDelegate.swift */,
 				40576BBF2109CD0E00A32A76 /* WelcomeViewController.swift */,
+				4069BB3B219F0E9A00397426 /* FinishRegistrationViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -102,12 +106,19 @@
 		40576BC7210B3C2A00A32A76 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				40576BC3210B3C0000A32A76 /* FUser.swift */,
 				40576BC8210B3C9B00A32A76 /* Constants.swift */,
 				40576BCA210B41A100A32A76 /* CollectionReference.swift */,
 				40576BCC210B429600A32A76 /* HelperFunctions.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		4069BB3D219F0EE400397426 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				40576BC3210B3C0000A32A76 /* FUser.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		4219B64987535CAC36D8C7DF /* Frameworks */ = {
@@ -285,6 +296,7 @@
 				40576BAE2108F7A500A32A76 /* AppDelegate.swift in Sources */,
 				40576BC02109CD0E00A32A76 /* WelcomeViewController.swift in Sources */,
 				40576BCB210B41A100A32A76 /* CollectionReference.swift in Sources */,
+				4069BB3C219F0E9A00397426 /* FinishRegistrationViewController.swift in Sources */,
 				40576BC9210B3C9B00A32A76 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
