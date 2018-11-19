@@ -83,7 +83,15 @@ class WelcomeViewController: UIViewController {
         //clean textfields
         clearKeyboard()
         dismisskeyboard()
-        //present app
+        
+        //posting a notification
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: USER_DID_LOGIN_NOTIFICATION), object: nil, userInfo: [kUSERID:FUser.currentId()])
+        
+        //initialize a storyboard
+        let mainView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainApplication") as! UITabBarController
+        
+        //presenting it
+        self.present(mainView, animated: true, completion: nil)
     }
     
     //MARK:Prepare segue
