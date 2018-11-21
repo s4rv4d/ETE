@@ -28,23 +28,80 @@ class UsersTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //load kCITY by default
+        LoadUsers(filter: kCITY)
 
     }
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return allUsers.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath) as! UsersTableViewCell
+        cell.GenerateCellWith(fuser: allUsers[indexPath.row], indexPath: indexPath)
         return cell
+    }
+    
+    //MARK:Functions
+    func LoadUsers(filter:String){
+        //show progress
+        ProgressHUD.show()
+        
+        //create a query instance
+        var query:Query!
+        
+        //depending on filter we'll create separate queries
+        //switch
+        switch filter {
+        case kCITY:
+            query = reference(.User).whereField(kCITY, isEqualTo: FUser.currentUser()!.city).order(by: kFIRSTNAME, descending: false)
+        case kCOUNTRY:
+            query = reference(.User).whereField(kCOUNTRY, isEqualTo: FUser.currentUser()!.country).order(by: kFIRSTNAME, descending: false)
+        default:
+            query = reference(.User).order(by: kFIRSTNAME, descending: false)
+        }
+        
+        query.getDocuments { (snapshot, error) in
+            self.allUsers = []
+            self.sectionTiltes = []
+            self.allUsersGroupped = [:]
+            
+            if error != nil{
+                print(error!.localizedDescription)
+                ProgressHUD.dismiss()
+//                ProgressHUD.showError(error!.localizedDescription)
+                self.tableView.reloadData()
+                return
+            }
+            
+            guard let snapshot = snapshot else{
+                ProgressHUD.dismiss()
+                return
+            }
+            
+            if !snapshot.isEmpty{
+                for userDict in snapshot.documents{
+                    let userDictionary = userDict.data() as NSDictionary
+                    let fuser = FUser(_dictionary: userDictionary)
+                    
+                    if fuser.objectId != FUser.currentId(){
+                        self.allUsers.append(fuser)
+                    }
+                }
+                
+                //split into groups
+            }
+            self.tableView.reloadData()
+            ProgressHUD.dismiss()
+        }
     }
 
 }
@@ -55,7 +112,17 @@ extension UsersTableViewController: UISearchResultsUpdating{
     
     //MARK:Search functions
     func updateSearchResults(for searchController: UISearchController) {
-        <#code#>
+        //insert the searchbar text inside function
+        FilterContentForSearch(searchText: searchController.searchBar.text!)
+    }
+    
+    func FilterContentForSearch(searchText:String,scope:String="All"){
+        filteredUsers = allUsers.filter({ (user) -> Bool in
+            return user.firstname.lowercased().contains(searchText.lowercased())
+        })
+        
+        //reload data after filtered users
+        tableView.reloadData()
     }
     
     
