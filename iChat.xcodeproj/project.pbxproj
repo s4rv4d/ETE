@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4048156D21A56F850007E845 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048156C21A56F850007E845 /* UsersTableViewController.swift */; };
 		40576BAE2108F7A500A32A76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40576BAD2108F7A500A32A76 /* AppDelegate.swift */; };
 		40576BB32108F7A500A32A76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40576BB12108F7A500A32A76 /* Main.storyboard */; };
 		40576BB52108F7A700A32A76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40576BB42108F7A700A32A76 /* Assets.xcassets */; };
@@ -17,12 +18,14 @@
 		40576BC9210B3C9B00A32A76 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40576BC8210B3C9B00A32A76 /* Constants.swift */; };
 		40576BCB210B41A100A32A76 /* CollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40576BCA210B41A100A32A76 /* CollectionReference.swift */; };
 		40576BCD210B429600A32A76 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40576BCC210B429600A32A76 /* HelperFunctions.swift */; };
+		405DB1AE21A56A9400088AA9 /* UsersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405DB1AD21A56A9400088AA9 /* UsersTableViewCell.swift */; };
 		4069BB3C219F0E9A00397426 /* FinishRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4069BB3B219F0E9A00397426 /* FinishRegistrationViewController.swift */; };
 		4088774321A30306000CAB48 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4088774221A30306000CAB48 /* SettingsTableViewController.swift */; };
 		7165766A062DF42D97AF8809 /* Pods_iChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F528CC8013958A8FD1BF0A0E /* Pods_iChat.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4048156C21A56F850007E845 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		40576BAA2108F7A500A32A76 /* iChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40576BAD2108F7A500A32A76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40576BB22108F7A500A32A76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -35,6 +38,7 @@
 		40576BC8210B3C9B00A32A76 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		40576BCA210B41A100A32A76 /* CollectionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReference.swift; sourceTree = "<group>"; };
 		40576BCC210B429600A32A76 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
+		405DB1AD21A56A9400088AA9 /* UsersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewCell.swift; sourceTree = "<group>"; };
 		4069BB3B219F0E9A00397426 /* FinishRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishRegistrationViewController.swift; sourceTree = "<group>"; };
 		4088774221A30306000CAB48 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		54DE3B99A2736340B3B39ADF /* Pods-iChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iChat/Pods-iChat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -54,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4048156B21A56F500007E845 /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				405DB1AD21A56A9400088AA9 /* UsersTableViewCell.swift */,
+			);
+			path = "Custom Cells";
+			sourceTree = "<group>";
+		};
 		40576BA12108F7A500A32A76 = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +114,8 @@
 				40576BBF2109CD0E00A32A76 /* WelcomeViewController.swift */,
 				4069BB3B219F0E9A00397426 /* FinishRegistrationViewController.swift */,
 				4088774221A30306000CAB48 /* SettingsTableViewController.swift */,
+				4048156C21A56F850007E845 /* UsersTableViewController.swift */,
+				4048156B21A56F500007E845 /* Custom Cells */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -301,6 +315,8 @@
 				4088774321A30306000CAB48 /* SettingsTableViewController.swift in Sources */,
 				40576BCB210B41A100A32A76 /* CollectionReference.swift in Sources */,
 				4069BB3C219F0E9A00397426 /* FinishRegistrationViewController.swift in Sources */,
+				405DB1AE21A56A9400088AA9 /* UsersTableViewCell.swift in Sources */,
+				4048156D21A56F850007E845 /* UsersTableViewController.swift in Sources */,
 				40576BC9210B3C9B00A32A76 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

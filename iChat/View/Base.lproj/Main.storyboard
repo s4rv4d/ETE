@@ -277,6 +277,84 @@
             </objects>
             <point key="canvasLocation" x="1877.5999999999999" y="-223.53823088455775"/>
         </scene>
+        <!--Users Table View Controller-->
+        <scene sceneID="XQ9-7O-AfY">
+            <objects>
+                <tableViewController id="KPG-oa-d31" customClass="UsersTableViewController" customModule="iChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dV9-Wx-Cw1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="bko-2y-mAY">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3lw-KJ-TFQ">
+                                    <rect key="frame" x="8" y="8" width="359" height="29"/>
+                                    <segments>
+                                        <segment title="My City"/>
+                                        <segment title="My Country"/>
+                                        <segment title="All"/>
+                                    </segments>
+                                </segmentedControl>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="3lw-KJ-TFQ" secondAttribute="trailing" constant="8" id="Xhq-r1-8DK"/>
+                                <constraint firstItem="3lw-KJ-TFQ" firstAttribute="centerY" secondItem="bko-2y-mAY" secondAttribute="centerY" id="ghU-cu-LzG"/>
+                                <constraint firstItem="3lw-KJ-TFQ" firstAttribute="leading" secondItem="bko-2y-mAY" secondAttribute="leading" constant="8" id="uK5-uG-spI"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userCell" rowHeight="80" id="QOP-4j-s9i" customClass="UsersTableViewCell" customModule="iChat" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QOP-4j-s9i" id="uhi-iE-IZQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatarPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="uAI-Mv-7lw">
+                                            <rect key="frame" x="16" y="10" width="60" height="60"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="60" id="cTS-vq-nyF"/>
+                                                <constraint firstAttribute="width" constant="60" id="m3l-ci-Sa2"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pf8-YI-m0d">
+                                            <rect key="frame" x="84" y="29.5" width="275" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="uAI-Mv-7lw" firstAttribute="centerY" secondItem="uhi-iE-IZQ" secondAttribute="centerY" id="601-h5-nQ2"/>
+                                        <constraint firstItem="Pf8-YI-m0d" firstAttribute="trailing" secondItem="uhi-iE-IZQ" secondAttribute="trailingMargin" id="VWN-ek-FKS"/>
+                                        <constraint firstItem="Pf8-YI-m0d" firstAttribute="leading" secondItem="uAI-Mv-7lw" secondAttribute="trailing" constant="8" id="hgh-8g-Fuk"/>
+                                        <constraint firstItem="uAI-Mv-7lw" firstAttribute="leading" secondItem="uhi-iE-IZQ" secondAttribute="leading" constant="16" id="iwP-kP-LdY"/>
+                                        <constraint firstItem="Pf8-YI-m0d" firstAttribute="centerY" secondItem="uhi-iE-IZQ" secondAttribute="centerY" id="veY-ug-XRy"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="userImageView" destination="uAI-Mv-7lw" id="IDN-gR-dlL"/>
+                                    <outlet property="userName" destination="Pf8-YI-m0d" id="O69-lm-RqW"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="KPG-oa-d31" id="vrs-jQ-uan"/>
+                            <outlet property="delegate" destination="KPG-oa-d31" id="wuv-Gy-rjY"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="filterSegmentedController" destination="3lw-KJ-TFQ" id="j1t-EF-pFX"/>
+                        <outlet property="headerView" destination="bko-2y-mAY" id="GeE-bD-VJs"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sza-Pq-Z3D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3994.4000000000001" y="-205.54722638680661"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="fs7-Kt-HZO">
             <objects>
