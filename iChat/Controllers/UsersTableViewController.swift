@@ -28,9 +28,12 @@ class UsersTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Users"
+        self.navigationItem.largeTitleDisplayMode = .never
         //load kCITY by default
         LoadUsers(filter: kCITY)
-
+        //to clear out empty tableview cells
+        tableView.tableFooterView = UIView()
     }
 
     // MARK: - Table view data source
@@ -48,6 +51,10 @@ class UsersTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath) as! UsersTableViewCell
         cell.GenerateCellWith(fuser: allUsers[indexPath.row], indexPath: indexPath)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
     
     //MARK:Functions
@@ -103,6 +110,25 @@ class UsersTableViewController: UITableViewController {
             ProgressHUD.dismiss()
         }
     }
+    
+    //MARK:IBActions
+    @IBAction func FilterValueChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            LoadUsers(filter: kCITY)
+            break
+        case 1:
+            LoadUsers(filter: kCOUNTRY)
+            break
+        case 2:
+            LoadUsers(filter: "")
+            break
+        default:
+            return
+        }
+    }
+    
+    
 
 }
 
