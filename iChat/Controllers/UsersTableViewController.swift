@@ -34,27 +34,81 @@ class UsersTableViewController: UITableViewController {
         LoadUsers(filter: kCITY)
         //to clear out empty tableview cells
         tableView.tableFooterView = UIView()
+        
+        //to add search controller to the navigation item
+        navigationItem.searchController = searchController
+        //to set the search updater to the current viewcontroller
+        searchController.searchResultsUpdater = self
+        //to avoid dismissing background while searching
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
     }
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        //for searching part its 1 section while for default state its multiple
+        if searchController.isActive && searchController.searchBar.text != ""{
+            return 1
+        }else{
+            return allUsersGroupped.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return allUsers.count
+        if searchController.isActive && searchController.searchBar.text != ""{
+            return filteredUsers.count
+        }else{
+            //finding section title
+            print("section titles are: ",self.sectionTiltes)
+            let sectionTitle = self.sectionTiltes[section]
+            //user for given section title
+            let users = self.allUsersGroupped[sectionTitle]
+            return users!.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath) as! UsersTableViewCell
-        cell.GenerateCellWith(fuser: allUsers[indexPath.row], indexPath: indexPath)
+        //to create a FUser variable
+        var user:FUser
+        //to checking if searching or not
+        if searchController.isActive && searchController.searchBar.text != ""{
+            user = filteredUsers[indexPath.row]
+        }else{
+            let sectionTitle = self.sectionTiltes[indexPath.section]
+            let users = self.allUsersGroupped[sectionTitle]
+            print(users!)
+            user = users![indexPath.row]
+        }
+        cell.GenerateCellWith(fuser: user, indexPath: indexPath)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if searchController.isActive && searchController.searchBar.text != ""{
+            return ""
+        }else{
+            return sectionTiltes[section]
+        }
+    }
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        if searchController.isActive && searchController.searchBar.text != ""{
+            return nil
+        }else{
+            return self.sectionTiltes
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        //jumps to section when you tap on it
+        return index
     }
     
     //MARK:Functions
@@ -105,10 +159,36 @@ class UsersTableViewController: UITableViewController {
                 }
                 
                 //split into groups
+                self.SplitAllUsersIntoGroups()
+                self.tableView.reloadData()
             }
             self.tableView.reloadData()
             ProgressHUD.dismiss()
         }
+    }
+    
+    fileprivate func SplitAllUsersIntoGroups(){
+        //section title
+        var sectionTitle:String = ""
+        for i in 0..<self.allUsers.count{
+            //access the user
+            let currentUser = self.allUsers[i]
+            //acces the first character
+            let firstCharacter = currentUser.firstname.first!
+            //convert character to string
+            let firstCharacterToString = String(firstCharacter)
+            
+            //to check if the section title doesnt exists
+            if firstCharacterToString != sectionTitle{
+                sectionTitle = firstCharacterToString
+                //clear the fuser array for the new section title first
+                self.allUsersGroupped[sectionTitle] = []
+                self.sectionTiltes.append(sectionTitle)
+            }
+            //then append to array
+            self.allUsersGroupped[firstCharacterToString]!.append(currentUser)
+        }
+        
     }
     
     //MARK:IBActions

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4027BAC521A9A42E00617D5B /* ProfilePageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4027BAC421A9A42E00617D5B /* ProfilePageTableViewController.swift */; };
 		4048156D21A56F850007E845 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048156C21A56F850007E845 /* UsersTableViewController.swift */; };
 		40576BAE2108F7A500A32A76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40576BAD2108F7A500A32A76 /* AppDelegate.swift */; };
 		40576BB32108F7A500A32A76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40576BB12108F7A500A32A76 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4027BAC421A9A42E00617D5B /* ProfilePageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageTableViewController.swift; sourceTree = "<group>"; };
 		4048156C21A56F850007E845 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		40576BAA2108F7A500A32A76 /* iChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40576BAD2108F7A500A32A76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,13 +114,14 @@
 		40576BC6210B3C1900A32A76 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4048156B21A56F500007E845 /* Custom Cells */,
 				40576BAD2108F7A500A32A76 /* AppDelegate.swift */,
 				40576BBF2109CD0E00A32A76 /* WelcomeViewController.swift */,
 				4069BB3B219F0E9A00397426 /* FinishRegistrationViewController.swift */,
 				4088774221A30306000CAB48 /* SettingsTableViewController.swift */,
 				4048156C21A56F850007E845 /* UsersTableViewController.swift */,
 				406504E321A8560C008AB62A /* ChatsViewController.swift */,
-				4048156B21A56F500007E845 /* Custom Cells */,
+				4027BAC421A9A42E00617D5B /* ProfilePageTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				40576BCD210B429600A32A76 /* HelperFunctions.swift in Sources */,
 				40576BAE2108F7A500A32A76 /* AppDelegate.swift in Sources */,
 				40576BC02109CD0E00A32A76 /* WelcomeViewController.swift in Sources */,
+				4027BAC521A9A42E00617D5B /* ProfilePageTableViewController.swift in Sources */,
 				4088774321A30306000CAB48 /* SettingsTableViewController.swift in Sources */,
 				40576BCB210B41A100A32A76 /* CollectionReference.swift in Sources */,
 				406504E421A8560C008AB62A /* ChatsViewController.swift in Sources */,
