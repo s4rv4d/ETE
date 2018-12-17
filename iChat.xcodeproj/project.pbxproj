@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4027BAC521A9A42E00617D5B /* ProfilePageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4027BAC421A9A42E00617D5B /* ProfilePageTableViewController.swift */; };
+		403F4D2421B1C03B00F72BD0 /* RecentChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403F4D2321B1C03B00F72BD0 /* RecentChat.swift */; };
 		4048156D21A56F850007E845 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048156C21A56F850007E845 /* UsersTableViewController.swift */; };
 		40576BAE2108F7A500A32A76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40576BAD2108F7A500A32A76 /* AppDelegate.swift */; };
 		40576BB32108F7A500A32A76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40576BB12108F7A500A32A76 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 		40576BC9210B3C9B00A32A76 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40576BC8210B3C9B00A32A76 /* Constants.swift */; };
 		40576BCB210B41A100A32A76 /* CollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40576BCA210B41A100A32A76 /* CollectionReference.swift */; };
 		40576BCD210B429600A32A76 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40576BCC210B429600A32A76 /* HelperFunctions.swift */; };
+		4058C8D921C7A8C600DC7F59 /* RecentChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4058C8D821C7A8C600DC7F59 /* RecentChatTableViewCell.swift */; };
 		405DB1AE21A56A9400088AA9 /* UsersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405DB1AD21A56A9400088AA9 /* UsersTableViewCell.swift */; };
 		406504E421A8560C008AB62A /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406504E321A8560C008AB62A /* ChatsViewController.swift */; };
 		4069BB3C219F0E9A00397426 /* FinishRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4069BB3B219F0E9A00397426 /* FinishRegistrationViewController.swift */; };
@@ -28,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		4027BAC421A9A42E00617D5B /* ProfilePageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageTableViewController.swift; sourceTree = "<group>"; };
+		403F4D2321B1C03B00F72BD0 /* RecentChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChat.swift; sourceTree = "<group>"; };
 		4048156C21A56F850007E845 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		40576BAA2108F7A500A32A76 /* iChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40576BAD2108F7A500A32A76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +44,7 @@
 		40576BC8210B3C9B00A32A76 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		40576BCA210B41A100A32A76 /* CollectionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReference.swift; sourceTree = "<group>"; };
 		40576BCC210B429600A32A76 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
+		4058C8D821C7A8C600DC7F59 /* RecentChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatTableViewCell.swift; sourceTree = "<group>"; };
 		405DB1AD21A56A9400088AA9 /* UsersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewCell.swift; sourceTree = "<group>"; };
 		406504E321A8560C008AB62A /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		4069BB3B219F0E9A00397426 /* FinishRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishRegistrationViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				405DB1AD21A56A9400088AA9 /* UsersTableViewCell.swift */,
+				4058C8D821C7A8C600DC7F59 /* RecentChatTableViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -140,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				40576BC3210B3C0000A32A76 /* FUser.swift */,
+				403F4D2321B1C03B00F72BD0 /* RecentChat.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -318,6 +324,7 @@
 				40576BCD210B429600A32A76 /* HelperFunctions.swift in Sources */,
 				40576BAE2108F7A500A32A76 /* AppDelegate.swift in Sources */,
 				40576BC02109CD0E00A32A76 /* WelcomeViewController.swift in Sources */,
+				4058C8D921C7A8C600DC7F59 /* RecentChatTableViewCell.swift in Sources */,
 				4027BAC521A9A42E00617D5B /* ProfilePageTableViewController.swift in Sources */,
 				4088774321A30306000CAB48 /* SettingsTableViewController.swift in Sources */,
 				40576BCB210B41A100A32A76 /* CollectionReference.swift in Sources */,
@@ -326,6 +333,7 @@
 				405DB1AE21A56A9400088AA9 /* UsersTableViewCell.swift in Sources */,
 				4048156D21A56F850007E845 /* UsersTableViewController.swift in Sources */,
 				40576BC9210B3C9B00A32A76 /* Constants.swift in Sources */,
+				403F4D2421B1C03B00F72BD0 /* RecentChat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

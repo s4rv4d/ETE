@@ -8,6 +8,11 @@
 
 import UIKit
 
+//creating our own custom delegate for passing data
+protocol UsersTableViewCellDelegate {
+    func DidTapProfilePic(IndexPath:IndexPath)
+}
+
 class UsersTableViewCell: UITableViewCell {
     
     //MARK:IBOutlets
@@ -17,6 +22,7 @@ class UsersTableViewCell: UITableViewCell {
     //MARK:Variables
     var indexPath:IndexPath!
     let tapGestureRecogniser = UITapGestureRecognizer()
+    var delegate:UsersTableViewCellDelegate?
     
 
     override func awakeFromNib() {
@@ -51,5 +57,8 @@ class UsersTableViewCell: UITableViewCell {
     
     @objc func AvatarTapped(){
         print("Avatar Tapped at IndexPath: \(indexPath)")
+        
+        //first you tap,then delegate get the indexValue and the view controller that has defined this function else where can access the indexpath
+        delegate!.DidTapProfilePic(IndexPath: indexPath)
     }
 }

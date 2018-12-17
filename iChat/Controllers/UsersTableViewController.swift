@@ -83,6 +83,8 @@ class UsersTableViewController: UITableViewController {
             user = users![indexPath.row]
         }
         cell.GenerateCellWith(fuser: user, indexPath: indexPath)
+        //delegate
+        cell.delegate = self
         return cell
     }
     
@@ -109,6 +111,25 @@ class UsersTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         //jumps to section when you tap on it
         return index
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //first deselect
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        //check if in search mode or not:
+        //to create a FUser variable
+        var user:FUser
+        if searchController.isActive && searchController.searchBar.text != ""{
+            user = filteredUsers[indexPath.row]
+        }else{
+            let sectionTitle = self.sectionTiltes[indexPath.section]
+            let users = self.allUsersGroupped[sectionTitle]
+            user = users![indexPath.row]
+        }
+        
+        //start chat
+        StartPrivateChat(user1: FUser.currentUser()!, user2: user)
     }
     
     //MARK:Functions
@@ -138,7 +159,6 @@ class UsersTableViewController: UITableViewController {
             if error != nil{
                 print(error!.localizedDescription)
                 ProgressHUD.dismiss()
-//                ProgressHUD.showError(error!.localizedDescription)
                 self.tableView.reloadData()
                 return
             }
@@ -229,6 +249,36 @@ extension UsersTableViewController: UISearchResultsUpdating{
         
         //reload data after filtered users
         tableView.reloadData()
+    }
+    
+    
+}
+
+extension UsersTableViewController: UsersTableViewCellDelegate{
+    
+    //delegate function
+    func DidTapProfilePic(IndexPath: IndexPath) {
+        
+        //print to check
+        print("User at \(IndexPath)")
+        
+        //to pass data
+        let profileViewcontroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileViewOfUser") as! ProfilePageTableViewController
+        
+        var user:FUser
+        //to checking if searching or not
+        if searchController.isActive && searchController.searchBar.text != ""{
+            user = filteredUsers[IndexPath.row]
+        }else{
+            let sectionTitle = self.sectionTiltes[IndexPath.section]
+            let users = self.allUsersGroupped[sectionTitle]
+            user = users![IndexPath.row]
+        }
+        
+        profileViewcontroller.user = user
+        
+        //present using navigation controller
+        self.navigationController?.pushViewController(profileViewcontroller, animated: true)
     }
     
     

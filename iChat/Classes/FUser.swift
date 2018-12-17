@@ -309,8 +309,10 @@ func getUsersFromFirestore(withIds: [String], completion: @escaping (_ usersArra
 func updateCurrentUserInFirestore(withValues : [String : Any], completion: @escaping (_ error: Error?) -> Void) {
     if let dictionary = UserDefaults.standard.object(forKey: kCURRENTUSER) {
         var tempWithValues = withValues
+        print("tempWithValues:",tempWithValues)
         let currentUserId = FUser.currentId()
         let updatedAt = dateFormatter().string(from: Date())
+        print("temp updates: ",tempWithValues[kUPDATEDAT])
         tempWithValues[kUPDATEDAT] = updatedAt
         let userObject = (dictionary as! NSDictionary).mutableCopy() as! NSMutableDictionary
         userObject.setValuesForKeys(tempWithValues)
