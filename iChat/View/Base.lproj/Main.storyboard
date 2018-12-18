@@ -260,11 +260,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bPm-JZ-fUc">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bPm-JZ-fUc">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="100" id="OIu-gX-UH1">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="recentCell" id="OIu-gX-UH1" customClass="RecentChatTableViewCell" customModule="iChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OIu-gX-UH1" id="iIh-Lo-A7M">
@@ -340,6 +340,14 @@
                                                 <constraint firstItem="jMN-at-wSC" firstAttribute="trailing" secondItem="iIh-Lo-A7M" secondAttribute="trailingMargin" id="wJV-52-RPt"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="ezg-TZ-j8S" id="EQm-2R-qfS"/>
+                                            <outlet property="fullNameLabel" destination="ACt-cU-A4p" id="0zM-le-Pzx"/>
+                                            <outlet property="lastMessageLabel" destination="3en-0G-kOC" id="hvu-DL-AJF"/>
+                                            <outlet property="messageCounterLabel" destination="njr-9D-qL7" id="lbJ-H6-AvP"/>
+                                            <outlet property="messageCounterView" destination="jMN-at-wSC" id="pvL-E0-kh7"/>
+                                            <outlet property="profilePicImageview" destination="lmH-mJ-UkF" id="XgD-i5-7wm"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -360,6 +368,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="recentChatTableView" destination="bPm-JZ-fUc" id="phs-Th-HMX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ixx-Zn-txu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
