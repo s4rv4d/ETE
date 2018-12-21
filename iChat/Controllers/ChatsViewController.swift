@@ -26,8 +26,18 @@ class ChatsViewController: UIViewController {
         
         //tableview stuff
         TableviewDelegateSetup()
-        LoadRecentChats()
+        SetTableViewHeader()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        LoadRecentChats()
+        recentChatTableView.tableFooterView = UIView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        recentListener.remove()
+    }
+    
 
     //MARK:IBActions
     @IBAction func NewMessage(_ sender: UIBarButtonItem) {
@@ -75,5 +85,56 @@ extension ChatsViewController:UITableViewDelegate,UITableViewDataSource{
                 self.recentChatTableView.reloadData()
             }
         })
+    }
+    //Mark: - Customtable view header
+    func SetTableViewHeader(){
+        //header view
+        let hdView = UIView(frame: CGRect(x: 0, y: 0, width: recentChatTableView.frame.width, height: 45))
+        //button view for creating group
+        let grpButtonView = UIView(frame: CGRect(x: 0, y: 5, width: recentChatTableView.frame.width, height: 35))
+        //create the button
+        let grpButton = UIButton(frame: CGRect(x: recentChatTableView.frame.width - 110, y: 10, width: 100, height: 20))
+        //target
+        grpButton.addTarget(self, action: #selector(self.GroupButtonTapped), for: .touchUpInside)
+        grpButton.setTitle("New Group", for: .normal)
+        grpButton.setTitleColor(#colorLiteral(red: 0.2540222406, green: 0.6071330905, blue: 0.9695068002, alpha: 1), for: .normal)
+        //bottom line to separate header from table view
+        let bottomLineView = UIView(frame: CGRect(x: 0, y: hdView.frame.height - 1, width: recentChatTableView.frame.width, height: 1))
+        bottomLineView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        
+        //add views
+        grpButtonView.addSubview(grpButton)
+        hdView.addSubview(grpButtonView)
+        hdView.addSubview(bottomLineView)
+        recentChatTableView.tableHeaderView = hdView
+    }
+    
+    @objc func GroupButtonTapped(){
+        print("new group add tapped")
+    }
+}
+
+extension ChatsViewController:RecentChatTableViewCellDelegate{
+    func ProfilePicTapped(index: IndexPath) {
+        let reChat = recentChats[index.row]
+        
+        if reChat[kTYPE] as! String == kPRIVATE{
+            reference(.User).document(reChat[kWITHUSERUSERID] as! String).getDocument { (snapshot, error) in
+                guard let snapshot = snapshot else {return}
+                if snapshot.exists{
+                    //create a current dictionary
+                    let userDict = snapshot.data() as! NSDictionary
+                    let tempUser = FUser(_dictionary: userDict)
+                    self.ShowUserProfile(user: tempUser)
+                }
+            }
+        }
+    }
+    
+    func ShowUserProfile(user:FUser){
+        let profileVc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileViewOfUser") as! ProfilePageTableViewController
+        profileVc.user = user
+        
+        self.navigationController?.pushViewController(profileVc, animated: true)
     }
 }
