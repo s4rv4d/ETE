@@ -40,9 +40,8 @@ func StartPrivateChat(user1:FUser,user2:FUser) -> String{
 func CreateChat(members:[String],chatroomID:String,withUserUsername:String,type:String,users:[FUser]?,avatarOfGroup:String?){
     
     var tempMembers = members
-    
     //to check if chat started before in firestore using chat room id
-    reference(.Recent).whereField(kRECENTID, isEqualTo: chatroomID).getDocuments { (snapshots, error) in
+    reference(.Recent).whereField(kCHATROOMID, isEqualTo: chatroomID).getDocuments { (snapshots, error) in
         guard let snapshot = snapshots else {return}
         
         //to check if snapshot isnt empty i.e., if chat already started before
@@ -50,14 +49,20 @@ func CreateChat(members:[String],chatroomID:String,withUserUsername:String,type:
             //to check for the recent texts
             for recent in snapshot.documents{
                 let currentRecent = recent.data() as NSDictionary
-                print("current recent: \(currentRecent)")
                 if let currentUserId = currentRecent[kUSERID]{
                     //to check if reccent chat object already created between users
+                    
                     if tempMembers.contains(currentUserId as! String){
                         tempMembers.remove(at: tempMembers.index(of:currentUserId as! String)!)
+                    }else{
+                        print("doesnt")
                     }
+                }else{
+                    print("not curr")
                 }
             }
+        }else{
+            print("error")
         }
         
         //if recent chat no created between the members in tempMembers
@@ -107,4 +112,20 @@ func CreateRecentItems(userID:String,chatRoomID:String,members:[String],withUser
     
     //save to firestore
     ref.setData(recent)
+}
+
+//restart chat
+func RestartRecentChat(recent:NSDictionary){
+    if recent[kTYPE] as! String == kPRIVATE{
+        CreateChat(members: recent[kMEMBERSTOPUSH] as! [String], chatroomID: recent[kCHATROOMID] as! String, withUserUsername: FUser.currentUser()!.firstname, type: kPRIVATE, users: [FUser.currentUser()!], avatarOfGroup: nil)
+    }else if recent[kTYPE] as! String == kGROUP{
+        CreateChat(members: recent[kMEMBERSTOPUSH] as! [String], chatroomID: recent[kCHATROOMID] as! String, withUserUsername: recent[kWITHUSERFULLNAME] as! String, type: kGROUP, users: nil, avatarOfGroup: recent[kAVATAR] as? String)
+    }
+}
+
+//delete
+func DeleteRecentChat(recentChatDict:NSDictionary){
+    if let recentId = recentChatDict[kRECENTID]{
+        reference(.Recent).document(recentId as! String).delete()
+    }
 }

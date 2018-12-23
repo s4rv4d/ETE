@@ -376,6 +376,21 @@
             </objects>
             <point key="canvasLocation" x="2816.8000000000002" y="-223.53823088455775"/>
         </scene>
+        <!--Messages View Controller-->
+        <scene sceneID="y55-0J-ebg">
+            <objects>
+                <viewController id="cpe-eH-XTK" customClass="JSQMessagesViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="p7a-yW-Vs2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="qkR-Y5-8zw"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Ju-C7-aF6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3606" y="-224"/>
+        </scene>
         <!--Users Table View Controller-->
         <scene sceneID="XQ9-7O-AfY">
             <objects>
@@ -455,7 +470,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sza-Pq-Z3D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3881" y="-224"/>
+            <point key="canvasLocation" x="4394" y="-224"/>
         </scene>
         <!--Profile Page Table View Controller-->
         <scene sceneID="W8J-w4-JcC">
@@ -616,7 +631,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="73t-vC-Em3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4637.6000000000004" y="-224.4377811094453"/>
+            <point key="canvasLocation" x="5150" y="-224"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="fs7-Kt-HZO">
