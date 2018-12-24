@@ -53,6 +53,11 @@ class MessageViewController:  JSQMessagesViewController{
     var allPictureMessages:[String] = []
     var initialLoadComplete = false
     
+    //listeners
+    var newChatListener:ListenerRegistration?
+    var typingListener:ListenerRegistration?
+    var updateListener:ListenerRegistration?
+    
     
     //fix iPhoneX UI
     override func viewDidLayoutSubviews() {
@@ -90,7 +95,55 @@ class MessageViewController:  JSQMessagesViewController{
         self.inputToolbar.contentView.rightBarButtonItem.setTitle("", for: .normal)
     }
     
-    //MARK: - Functions
+    //MARK: - JSQ Datasource functions
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+        //time stamp after every three messages
+        if indexPath.item % 3 == 0{
+            let message = messages[indexPath.row]
+            return JSQMessagesTimestampFormatter.shared().attributedTimestamp(for:message.date)
+        }
+            return nil
+    }
+    
+   override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAt indexPath: IndexPath!) -> CGFloat {
+        if indexPath.item % 3 == 0{
+            return kJSQMessagesCollectionViewCellLabelHeightDefault
+        }
+        return 0
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellBottomLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+        //last message read status
+        let message = objectMessage[indexPath.row]
+        let status:NSAttributedString!
+        let attrFormatColor = [NSAttributedStringKey.foregroundColor:UIColor.darkGray]
+        
+        switch message[kSTATUS] as! String {
+        case kDELIVERED:
+            status = NSAttributedString(string: kDELIVERED)
+        case kREAD:
+            let statusText = "Read \(ReadTimeFormat(date: message[kREADDATE] as! String))"
+            status = NSAttributedString(string: statusText, attributes: attrFormatColor)
+        default:
+            status = NSAttributedString(string: "✔️")
+        }
+        
+        if indexPath.row == messages.count - 1{
+            return status
+        }else{
+            return NSAttributedString(string:"")
+        }
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellBottomLabelAt indexPath: IndexPath!) -> CGFloat {
+        let data = messages[indexPath.row]
+        if data.senderId == FUser.currentId(){
+            return kJSQMessagesCollectionViewCellLabelHeightDefault
+        }else{
+            return 0
+        }
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
         let data = messages[indexPath.row]
@@ -118,6 +171,8 @@ class MessageViewController:  JSQMessagesViewController{
             return incomingBubble
         }
     }
+    
+    //MARK: - JSQ Delegate functions
     
     override func didPressAccessoryButton(_ sender: UIButton!) {
         print("accessory button pressed")
@@ -178,6 +233,13 @@ class MessageViewController:  JSQMessagesViewController{
         }
     }
     
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, header headerView: JSQMessagesLoadEarlierHeaderView!, didTapLoadEarlierMessagesButton sender: UIButton!) {
+        print("load more")
+        //load morew messages
+        LoadMoreMessages(max: maxMessageNumber, min: minMessageNumber)
+        self.collectionView.reloadData()
+    }
+    
     override func textViewDidChange(_ textView: UITextView) {
         if textView.text != ""{
             UpdateSendButton(isSend: true)
@@ -188,6 +250,37 @@ class MessageViewController:  JSQMessagesViewController{
     
     @objc func BackAction(){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: - Functions
+    //load more messages
+    func LoadMoreMessages(max:Int,min:Int){
+        //to update max and min
+        if loadOld{
+            maxMessageNumber = min - 1
+            minMessageNumber = maxMessageNumber - kNUMBEROFMESSAGES
+        }
+        
+        if minMessageNumber < 0 {
+           minMessageNumber = 0
+        }
+        
+        for i in (minMessageNumber ... maxMessageNumber).reversed(){
+            let msgDict = loadedMessages[i]
+            //insert new message
+            InsertNewMessage(msgD: msgDict)
+            loadedMessagesCount += 1
+        }
+        
+        loadOld = true
+        self.showLoadEarlierMessagesHeader = (loadedMessagesCount != loadedMessages.count)
+    }
+    
+    func InsertNewMessage(msgD:NSDictionary){
+        let incomingMessage = IncomingMessage(collectionView_: self.collectionView)
+        let message = incomingMessage.CreateMessage(messageDict: msgD, chatroomId: chatRoomId)
+        objectMessage.insert(msgD, at: 0)
+        messages.insert(message!, at: 0)
     }
     
     //Custom send button
@@ -240,8 +333,65 @@ class MessageViewController:  JSQMessagesViewController{
             print("we have \(self.messages.count) loaded")
             //get picture messages
             //get old messages in background
+            self.GetOldMessagesInBackground()
             //start listening for new chats
+            self.ListenForNewChat()
             
+        }
+    }
+    
+    func ListenForNewChat(){
+        var lastMessageDate = "0"
+        
+        if loadedMessages.count > 0{
+            lastMessageDate = loadedMessages.last![kDATE] as! String
+        }
+        
+        newChatListener = reference(.Message).document(FUser.currentId()).collection(chatRoomId).whereField(kDATE, isGreaterThan: lastMessageDate).addSnapshotListener({ (snapshot, error) in
+            guard let snapshot = snapshot else{return}
+            
+            if !snapshot.isEmpty{
+                for diff in snapshot.documentChanges{
+                    if diff.type == .added{
+                        let item = diff.document.data() as NSDictionary
+                        if let type = item[kTYPE]{
+                            if self.properMessageTypes.contains(type as! String){
+                                if type as! String == kPICTURE{
+                                    //for pictures
+                                    //add to pictures
+                                }
+                                
+                                if self.InsertInitialLoadedMessages(md: item){
+                                    JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
+                                }
+                                
+                                self.finishReceivingMessage()
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        
+    }
+    
+    func GetOldMessagesInBackground(){
+        //getting messages in background
+        if loadedMessages.count > 10{
+            let firstMessageDate = loadedMessages.first![kDATE] as! String
+            //to get older messages
+            reference(.Message).document(FUser.currentId()).collection(chatRoomId).whereField(kDATE, isLessThan: firstMessageDate).getDocuments { (snapshot, error) in
+                guard let snapshot = snapshot else{return}
+                let sorted = ((dictionaryFromSnapshots(snapshots: snapshot.documents)) as NSArray).sortedArray(using: [NSSortDescriptor(key: kDATE, ascending: true)]) as! [NSDictionary]
+                //to bring old messages before the current messages
+                self.loadedMessages = self.RemoveCorruptMessages(allMessages: sorted) + self.loadedMessages
+                
+                //get messages
+                
+                //to update max and min after getting old messages
+                self.maxMessageNumber = self.loadedMessages.count - self.loadedMessagesCount - 1
+                self.minMessageNumber = self.maxMessageNumber - kNUMBEROFMESSAGES
+            }
         }
     }
     
@@ -313,6 +463,14 @@ class MessageViewController:  JSQMessagesViewController{
         }else{
             return true
         }
+    }
+    
+    //for time of READ message
+    func ReadTimeFormat(date:String) -> String{
+        let date = dateFormatter().date(from: date)
+        let currentDateformat = dateFormatter()
+        currentDateformat.dateFormat = "HH:mm"
+        return currentDateformat.string(from: date!)
     }
 }
 
