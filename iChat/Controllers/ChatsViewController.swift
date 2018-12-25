@@ -107,6 +107,8 @@ extension ChatsViewController:UITableViewDelegate,UITableViewDataSource{
         messageVC.chatRoomId = (recent[kCHATROOMID] as? String)!
         //nav bat updates
         messageVC.titleName = (recent[kWITHUSERFULLNAME] as? String)!
+        //checking if group or not
+        messageVC.isGroup = (recent[kTEXT] as! String) == kGROUP
         navigationController?.pushViewController(messageVC, animated: true)
         
     }

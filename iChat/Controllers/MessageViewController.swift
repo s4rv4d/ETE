@@ -29,10 +29,35 @@ class MessageViewController:  JSQMessagesViewController{
     var outgoingBubble = JSQMessagesBubbleImageFactory()?.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
     var incomingBubble = JSQMessagesBubbleImageFactory()?.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
     
+    //custom header
+    let leftBarButton:UIView = {
+       let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
+        return view
+    }()
+    let avatarButton:UIButton = {
+       let button = UIButton(frame: CGRect(x: 0, y: 10, width: 25, height: 25))
+        return button
+    }()
+    let titleLabel:UILabel = {
+       let title = UILabel(frame: CGRect(x: 30, y: 10, width: 140, height: 15))
+        title.textAlignment = .left
+        title.font = UIFont(name: title.font.fontName, size: 14)
+        return title
+    }()
+    let subTitleLabel:UILabel = {
+       let subTitleLabel = UILabel(frame: CGRect(x: 30, y: 25, width: 140, height: 15))
+        subTitleLabel.textAlignment = .left
+        subTitleLabel.font = UIFont(name: subTitleLabel.font.fontName, size: 14)
+        return subTitleLabel
+    }()
+    
     //chat room stuff
     var chatRoomId:String!
     var memberids:[String]!
     var memberToPush:[String]!
+    var isGroup:Bool?
+    var group:NSDictionary?
+    var withUser:[FUser] = []
     
     //nav var stuff
     var titleName:String!
@@ -77,11 +102,13 @@ class MessageViewController:  JSQMessagesViewController{
         //nav fixes
         navigationItem.largeTitleDisplayMode = .never
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Back"), style: .plain, target: self, action: #selector(self.BackAction))]
-        title = titleName
         
         //default avatar size next to message bubble
         collectionView?.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView?.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
+        
+        //custom header
+        SetCustomTitle()
         
         LoadMessages()
         //fix iPhoneX UI
@@ -176,6 +203,10 @@ class MessageViewController:  JSQMessagesViewController{
     
     override func didPressAccessoryButton(_ sender: UIButton!) {
         print("accessory button pressed")
+        
+        //camera class instance
+        let camera = Camera(delegate_: self)
+        
         //show option menu
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let takePhotoOrVideo = UIAlertAction(title: "Camera", style: .default) { (action) in
@@ -213,9 +244,9 @@ class MessageViewController:  JSQMessagesViewController{
                 
                 currentPopoverPresebtationController.permittedArrowDirections = .up
                 self.present(optionMenu, animated: true, completion: nil)
-            }else{
-                self.present(optionMenu, animated: true, completion: nil)
             }
+        }else{
+            self.present(optionMenu, animated: true, completion: nil)
         }
     }
     
@@ -411,6 +442,66 @@ class MessageViewController:  JSQMessagesViewController{
         return tempMessages
     }
     
+    //MARK: - Update UI
+    func SetCustomTitle(){
+        leftBarButton.addSubview(avatarButton)
+        leftBarButton.addSubview(titleLabel)
+        leftBarButton.addSubview(subTitleLabel)
+        
+        let infoButton = UIBarButtonItem(image: UIImage(named: "info"), style: .plain, target: self, action: #selector(self.InfoButtonPressed))
+        self.navigationItem.rightBarButtonItem = infoButton
+        
+        let leftBarButtonItem = UIBarButtonItem(customView: leftBarButton)
+        self.navigationItem.leftBarButtonItems?.append(leftBarButtonItem)
+        
+        if isGroup!{
+            avatarButton.addTarget(self, action: #selector(self.ShowGroup), for: .touchUpInside)
+        }else{
+            avatarButton.addTarget(self, action: #selector(self.ShowUserProfile), for: .touchUpInside)
+        }
+        
+        getUsersFromFirestore(withIds: memberids) { (withUsers) in
+            self.withUser = withUsers
+            //get avatars
+            if !self.isGroup!{
+                //update user info
+                self.SetupUIForSingleChat()
+            }
+        }
+    }
+    
+    func SetupUIForSingleChat(){
+        let withUsr = withUser.first!
+        imageFromData(pictureData: withUsr.avatar) { (img) in
+            if img != nil{
+                avatarButton.setImage(img!.circleMasked, for: .normal)
+            }
+        }
+        titleLabel.text = withUsr.fullname
+        if withUsr.isOnline{
+            subTitleLabel.text = "Online"
+        }else{
+            subTitleLabel.text = "Offline"
+        }
+        
+        avatarButton.addTarget(self, action: #selector(self.ShowUserProfile), for: .touchUpInside)
+    }
+    
+    @objc func InfoButtonPressed(){
+        print("info button tapped to show info")
+    }
+    
+    @objc func ShowGroup(){
+        print("show group info")
+    }
+    
+    @objc func ShowUserProfile(){
+        print("show user profile info")
+        let profileView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileViewOfUser") as! ProfilePageTableViewController
+        profileView.user = withUser.first!
+        self.navigationController?.pushViewController(profileView, animated: true)
+    }
+    
     //MARK: - Insert Messages
     func InsertMessages(){
         maxMessageNumber = loadedMessages.count - loadedMessagesCount
@@ -484,4 +575,9 @@ extension JSQMessagesInputToolbar {
             bottomAnchor.constraintLessThanOrEqualToSystemSpacingBelow(anchor, multiplier: 1.0).isActive = true
         }
     }
+}
+
+
+extension MessageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    //just conforming nothing else, to use functions in Camera class
 }
