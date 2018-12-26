@@ -143,7 +143,7 @@ class MessageViewController:  JSQMessagesViewController{
         //last message read status
         let message = objectMessage[indexPath.row]
         let status:NSAttributedString!
-        let attrFormatColor = [NSAttributedStringKey.foregroundColor:UIColor.darkGray]
+        let attrFormatColor = [NSAttributedString.Key.foregroundColor:UIColor.darkGray]
         
         switch message[kSTATUS] as! String {
         case kDELIVERED:
@@ -174,10 +174,13 @@ class MessageViewController:  JSQMessagesViewController{
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
         let data = messages[indexPath.row]
+        
+        //textviews need to be optional because text view are required only for text messages
+        
         if data.senderId == FUser.currentId(){
-            cell.textView.textColor = .white
+            cell.textView?.textColor = .white
         }else{
-            cell.textView.textColor = .black
+            cell.textView?.textColor = .black
         }
         return cell
     }
@@ -211,12 +214,15 @@ class MessageViewController:  JSQMessagesViewController{
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let takePhotoOrVideo = UIAlertAction(title: "Camera", style: .default) { (action) in
             print("camera")
+            camera.PresentMultiCamera(target: self, canEdit: false)
         }
         let showPhotoLibrary = UIAlertAction(title: "Photo Library", style: .default) { (action) in
             print("photo library")
+            camera.PresentPhotoLibrary(target: self, canEdit: false)
         }
         let shareVideo = UIAlertAction(title: "Video Library", style: .default) { (action) in
             print("Video library")
+            camera.PresentVideoLibrary(target: self, canEdit: false)
         }
         let shareLocation = UIAlertAction(title: "Share Location", style: .default) { (action) in
             print("Share location")
@@ -271,6 +277,52 @@ class MessageViewController:  JSQMessagesViewController{
         self.collectionView.reloadData()
     }
     
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!) {
+        print("cell tapped at \(indexPath)")
+        
+        let messageDictionary = objectMessage[indexPath.row]
+        let messageType = messageDictionary[kTYPE] as! String
+        
+        //for different types
+        switch messageType {
+        case kPICTURE:
+            print("oicture tapped")
+            let message = messages[indexPath.row]
+            let mediaItem = message.media as! JSQPhotoMediaItem
+            //using idm to handle image,and loads it with media item, it has his inbuiltbrowser for zooming in the image, or for sharing
+            let photo = IDMPhoto.photos(withImages: [mediaItem.image])
+            //initialize the browser
+            let browser = IDMPhotoBrowser(photos: photo)
+            
+            self.present(browser!, animated: true, completion: nil)
+            
+            
+        case kLOCATION:
+            print("location message tapped")
+        case kVIDEO:
+            print("video message tapped")
+            //get video url from message
+            let message = messages[indexPath.row]
+            let mediaItem = message.media as! VideoMessage
+            //give the player the video url for it to play
+            let player = AVPlayer(url: mediaItem.fileURL! as URL)
+            //instantiate a movie viewcontroller to play the video
+            let movieViewController = AVPlayerViewController()
+            let session = AVAudioSession.sharedInstance()
+            
+            //for DEV INFO: there was a bug where i couldnt set setCategory function properly
+            try! session.setCategory(AVAudioSession.Category.playAndRecord, mode: AVAudioSession.Mode.default, options: AVAudioSession.CategoryOptions.defaultToSpeaker)
+            //set the player to movie viewcontroller
+            movieViewController.player = player
+            
+            self.present(movieViewController,animated:true){
+                movieViewController.player!.play()
+            }
+        default:
+            print("unknown messaged tapped")
+        }
+    }
+    
     override func textViewDidChange(_ textView: UITextView) {
         if textView.text != ""{
             UpdateSendButton(isSend: true)
@@ -281,6 +333,26 @@ class MessageViewController:  JSQMessagesViewController{
     
     @objc func BackAction(){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: - UIImagePickerController functions
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+//        let video = info[UIImagePickerController.InfoKey.mediaURL] as? NSURL
+//        let picture = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+//
+//        SendMessage(text: nil, date: Date(), picture: picture, location: nil, video: video, audio: nil)
+//
+//        picker.dismiss(animated: true, completion: nil)
+//    }
+    //for swift 4.2
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        let video = info[UIImagePickerController.InfoKey.mediaURL] as? NSURL
+        let picture = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        
+        SendMessage(text: nil, date: Date(), picture: picture, location: nil, video: video, audio: nil)
+        
+        picker.dismiss(animated: true, completion: nil)
     }
     
     //MARK: - Functions
@@ -333,6 +405,42 @@ class MessageViewController:  JSQMessagesViewController{
         if let text = text{
             outgoingMessage = OutgoingMessages(message: text, senderID: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kTEXT)
         }
+        //picture message
+        if let picture = picture{
+            //upload image
+            UploadImage(image: picture, chatRoomId: chatRoomId, view: self.navigationController!.view) { (imageLink) in
+                if imageLink != nil{
+                    let text = "[\(kPICTURE)]"
+                    outgoingMessage = OutgoingMessages(message: text, pictureLink: imageLink!, senderID: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kPICTURE)
+                    JSQSystemSoundPlayer.jsq_playMessageSentSound()
+                    self.finishSendingMessage()
+                    outgoingMessage?.SendMessage(chatRoomId: self.chatRoomId, messageDict: outgoingMessage!.messageDictionary, memberids: self.memberids, membersToPush: self.memberToPush)
+                }
+            }
+            return
+        }
+        //video message
+        if let video = video{
+            //get video
+            let videoData = NSData(contentsOfFile: video.path!)
+            //getting thumbnail from video
+            let thmbnail = VideoThumbnail(video: video)
+            //for uploading to firebase
+//            let dataThumbNail = UIImageJPEGRepresentation(thmbnail, 0.3)
+            let dataThumbNail = thmbnail.jpegData(compressionQuality: 0.3)
+            
+            UploadVideo(video: videoData!, chatroomID: chatRoomId, view: (self.navigationController?.view)!) { (videoLnk) in
+                if videoLnk != nil{
+                    let text = "[\(kVIDEO)]"
+                    outgoingMessage = OutgoingMessages(message: text, videoLink: videoLnk!, thumbNail: dataThumbNail! as NSData, senderID: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kVIDEO)
+                    JSQSystemSoundPlayer.jsq_playMessageSentSound()
+                    self.finishSendingMessage()
+                    outgoingMessage?.SendMessage(chatRoomId: self.chatRoomId, messageDict: (outgoingMessage?.messageDictionary)!, memberids: self.memberids, membersToPush: self.memberToPush)
+                }
+            }
+            return
+        }
+        
         //sending message sound
         JSQSystemSoundPlayer.jsq_playMessageSentSound()
         self.finishSendingMessage()
@@ -572,7 +680,7 @@ extension JSQMessagesInputToolbar {
         guard let window = window else { return }
         if #available(iOS 11.0, *) {
             let anchor = window.safeAreaLayoutGuide.bottomAnchor
-            bottomAnchor.constraintLessThanOrEqualToSystemSpacingBelow(anchor, multiplier: 1.0).isActive = true
+            bottomAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: anchor, multiplier: 1.0).isActive = true
         }
     }
 }

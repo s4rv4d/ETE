@@ -18,7 +18,7 @@ public let USER_DID_LOGIN_NOTIFICATION = "UserDidLoginNotification"
 public let APP_STARTED_NOTIFICATION = "AppStartedNotification"
 
 //IDS and Keys
-public let kFILEREFERENCE = ""
+public let kFILEREFERENCE = "gs://flash-chat-967cc.appspot.com/"
 public let kONESIGNALAPPID = ""
 public let kSINCHKEY = ""
 public let kSINCHSECRET = ""

@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>E2E</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -34,12 +36,17 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>E2E needs to use your Camera</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>E2E needs to use your Media library</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>E2E needs to use your Photo library</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>E2E needs to use your Microphone</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>E2E needs to access ypur Location</string>
+	<key>NSContactsUsageDescription</key>
+	<string>E2E needs to access ypur Contacts</string>
 </dict>
 </plist>
