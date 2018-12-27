@@ -41,9 +41,11 @@ class IncomingMessage {
         case kAUDIO:
             //create audio message
             print("audio")
+            message = CreateAudioMessage(messDict: messageDict)
         case kLOCATION:
             //create location message
             print("location")
+            message = CreateLocationMessage(messDict: messageDict)
         default:
             print("Unknown message type")
         }
@@ -151,4 +153,66 @@ class IncomingMessage {
         return JSQMessage(senderId: userId!, senderDisplayName: name!, date: date, media: mediaItem)
     }
     
+    //audio message
+    func CreateAudioMessage(messDict:NSDictionary) -> JSQMessage{
+        let name = messDict[kSENDERNAME] as? String
+        let userId = messDict[kSENDERID] as? String
+        
+        //handling date part to check if date is present in messages from chatroom id
+        var date:Date!
+        if let created = messDict[kDATE]{
+            if (created as! String).count != 14{
+                date = Date()
+            }else{
+                date = dateFormatter().date(from: created as! String)
+            }
+        }else{
+            date = Date()
+        }
+        
+        let audioItem = JSQAudioMediaItem(data: nil)
+        audioItem.appliesMediaViewMaskAsOutgoing = ReturnOutgoingStatusForUser(senderID: userId!)
+        
+        let audioMessage = JSQMessage(senderId: userId!, displayName: name!, media: audioItem)
+        
+        //download audio
+        DownloadAudio(audioURL: messDict[kAUDIO] as! String) { (fileName) in
+            let url = NSURL(fileURLWithPath: FileInDocumentsDirectory(filename: fileName))
+            let audioData = try? Data(contentsOf: url as URL)
+            audioItem.audioData = audioData
+            self.collectionView.reloadData()
+        }
+        return audioMessage!
+    }
+    
+    //location message
+    func CreateLocationMessage(messDict:NSDictionary) -> JSQMessage{
+        let name = messDict[kSENDERNAME] as! String
+        let userId = messDict[kSENDERID] as! String
+        
+        //handling date part to check if date is present in messages from chatroom id
+        var date:Date!
+        if let created = messDict[kDATE]{
+            if (created as! String).count != 14{
+                date = Date()
+            }else{
+                date = dateFormatter().date(from: created as! String)
+            }
+        }else{
+            date = Date()
+        }
+        
+        let text = messDict[kMESSAGE] as! String
+        let lat = messDict[kLATITUDE] as? Double
+        let long = messDict[kLONGITUDE] as? Double
+        
+        //creating a jsq location message
+        let mediaItem = JSQLocationMediaItem(location: nil)
+        mediaItem?.appliesMediaViewMaskAsOutgoing = ReturnOutgoingStatusForUser(senderID: userId)
+        let location = CLLocation(latitude: lat!, longitude: long!)
+        mediaItem?.setLocation(location, withCompletionHandler: {
+            self.collectionView.reloadData()
+        })
+        return JSQMessage(senderId: userId, senderDisplayName: name, date: date, media: mediaItem!)
+    }
 }

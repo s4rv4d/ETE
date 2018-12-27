@@ -129,3 +129,67 @@ func DeleteRecentChat(recentChatDict:NSDictionary){
         reference(.Recent).document(recentId as! String).delete()
     }
 }
+
+//clear counter
+func ClearRecentCounter(chatRoomId:String){
+    reference(.Recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).getDocuments { (snapshot,error) in
+        guard let snapshot = snapshot else{return}
+        
+        if !snapshot.isEmpty{
+            for recent in snapshot.documents{
+                let currentRecent = recent.data() as! NSDictionary
+                if currentRecent[kUSERID] as! String == FUser.currentId(){
+                    ClearRecentCounterItem(object: currentRecent)
+                }
+            }
+        }
+    }
+}
+
+func ClearRecentCounterItem(object:NSDictionary){
+    reference(.Recent).document(object[kRECENTID] as! String).updateData([kCOUNTER:0])
+}
+
+//update recent
+func UpdateRecentItem(recent:NSDictionary,lastMessage:String){
+    let date = dateFormatter().string(from: Date())
+    var counter = recent[kCOUNTER] as! Int
+    
+    if recent[kUSERID] as! String != FUser.currentId(){
+        //basically this measn if the latest recent isnt by us basically its an unread message so increment counter
+        counter += 1
+    }
+    let values = [kLASTMESSAGE:lastMessage,kCOUNTER:counter,kDATE:date] as [String:Any]
+    reference(.Recent).document(recent[kRECENTID] as! String).updateData(values)
+}
+
+func UpdateRecents(chatRoomId:String,lastMessage:String){
+    reference(.Recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).getDocuments { (snapshot,error) in
+        guard let snapshot = snapshot else{return}
+        
+        if !snapshot.isEmpty{
+            for recent in snapshot.documents{
+                let currentRecent = recent.data() as! NSDictionary
+                UpdateRecentItem(recent: currentRecent, lastMessage: lastMessage)
+            }
+        }
+    }
+}
+
+func UpdateExistingRecentWithNewValues(chatroomID:String,members:[String],withValues:[String:Any]){
+    reference(.Recent).whereField(kCHATROOMID, isEqualTo: chatroomID).getDocuments { (snapshot, error) in
+        guard let snapshot = snapshot else{return}
+        
+        if !snapshot.isEmpty{
+            for recent in snapshot.documents{
+                let recent = recent.data() as NSDictionary
+                //update
+                UpdateRecent(recentID: recent[kRECENTID] as! String, withValues: withValues)
+            }
+        }
+    }
+}
+
+func UpdateRecent(recentID:String,withValues:[String:Any]){
+    reference(.Recent).document(recentID).updateData(withValues)
+}

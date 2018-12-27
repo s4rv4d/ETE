@@ -633,6 +633,83 @@
             </objects>
             <point key="canvasLocation" x="5150" y="-224"/>
         </scene>
+        <!--Map View Controller-->
+        <scene sceneID="DDZ-3s-LHl">
+            <objects>
+                <viewController storyboardIdentifier="mapVC" id="1sa-av-8Wa" customClass="MapViewController" customModule="iChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="plD-8b-j0J">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsScale="YES" showsTraffic="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ob3-s1-NVT">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ob3-s1-NVT" firstAttribute="bottom" secondItem="FAn-Sf-0dG" secondAttribute="bottom" id="94x-IP-KIy"/>
+                            <constraint firstItem="ob3-s1-NVT" firstAttribute="trailing" secondItem="FAn-Sf-0dG" secondAttribute="trailing" id="OeB-jA-y7h"/>
+                            <constraint firstItem="ob3-s1-NVT" firstAttribute="top" secondItem="plD-8b-j0J" secondAttribute="top" id="Wvk-oG-2Iq"/>
+                            <constraint firstItem="ob3-s1-NVT" firstAttribute="leading" secondItem="FAn-Sf-0dG" secondAttribute="leading" id="fqi-j5-4Cp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="FAn-Sf-0dG"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="ob3-s1-NVT" id="pnC-9F-HCy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s5H-7R-A6K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5992.8000000000002" y="-219.04047976011995"/>
+        </scene>
+        <!--Pictures Collection View Controller-->
+        <scene sceneID="VhQ-Ye-WOw">
+            <objects>
+                <collectionViewController storyboardIdentifier="mediaView" id="idB-Jf-fhD" customClass="PicturesCollectionViewController" customModule="iChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="NvL-D2-oiP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="OHd-3E-9Ln">
+                            <size key="itemSize" width="105" height="105"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="10" minY="10" maxX="25" maxY="10"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="die-9t-yyf" customClass="PicturesCollectionViewCell" customModule="iChat" customModuleProvider="target">
+                                <rect key="frame" x="10" y="10" width="105" height="105"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="105" height="105"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dHs-nQ-MIA">
+                                            <rect key="frame" x="0.0" y="0.0" width="105" height="105"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="dHs-nQ-MIA" firstAttribute="leading" secondItem="die-9t-yyf" secondAttribute="leading" id="EDY-PF-Bev"/>
+                                    <constraint firstAttribute="trailing" secondItem="dHs-nQ-MIA" secondAttribute="trailing" id="M0n-CK-Vhx"/>
+                                    <constraint firstItem="dHs-nQ-MIA" firstAttribute="top" secondItem="die-9t-yyf" secondAttribute="top" id="eob-cX-1Xh"/>
+                                    <constraint firstAttribute="bottom" secondItem="dHs-nQ-MIA" secondAttribute="bottom" id="u4Z-wT-CWK"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="collecImageView" destination="dHs-nQ-MIA" id="7dI-A7-8Kh"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="idB-Jf-fhD" id="6S1-Pf-8VI"/>
+                            <outlet property="delegate" destination="idB-Jf-fhD" id="7kX-Fx-6D4"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CId-Lg-GOo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5998" y="509"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="fs7-Kt-HZO">
             <objects>

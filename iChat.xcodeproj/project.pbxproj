@@ -32,6 +32,10 @@
 		40FFE1A321D2A270007866AD /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFE1A221D2A270007866AD /* Downloader.swift */; };
 		40FFE1A521D3731B007866AD /* PhotoMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFE1A421D3731B007866AD /* PhotoMediaItem.swift */; };
 		40FFE1A721D39323007866AD /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFE1A621D39323007866AD /* VideoMessage.swift */; };
+		40FFE1A921D3DCDC007866AD /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFE1A821D3DCDC007866AD /* AudioViewController.swift */; };
+		40FFE1AB21D42066007866AD /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFE1AA21D42066007866AD /* MapViewController.swift */; };
+		40FFE1AD21D4DE4A007866AD /* PicturesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFE1AC21D4DE4A007866AD /* PicturesCollectionViewController.swift */; };
+		40FFE1AF21D4DE95007866AD /* PicturesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFE1AE21D4DE95007866AD /* PicturesCollectionViewCell.swift */; };
 		7165766A062DF42D97AF8809 /* Pods_iChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F528CC8013958A8FD1BF0A0E /* Pods_iChat.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +67,10 @@
 		40FFE1A221D2A270007866AD /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		40FFE1A421D3731B007866AD /* PhotoMediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMediaItem.swift; sourceTree = "<group>"; };
 		40FFE1A621D39323007866AD /* VideoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
+		40FFE1A821D3DCDC007866AD /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
+		40FFE1AA21D42066007866AD /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		40FFE1AC21D4DE4A007866AD /* PicturesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesCollectionViewController.swift; sourceTree = "<group>"; };
+		40FFE1AE21D4DE95007866AD /* PicturesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesCollectionViewCell.swift; sourceTree = "<group>"; };
 		54DE3B99A2736340B3B39ADF /* Pods-iChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iChat/Pods-iChat.debug.xcconfig"; sourceTree = "<group>"; };
 		F1DCBBF9CAA17551E95E42C7 /* Pods-iChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-iChat/Pods-iChat.release.xcconfig"; sourceTree = "<group>"; };
 		F528CC8013958A8FD1BF0A0E /* Pods_iChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,6 +93,7 @@
 			children = (
 				405DB1AD21A56A9400088AA9 /* UsersTableViewCell.swift */,
 				4058C8D821C7A8C600DC7F59 /* RecentChatTableViewCell.swift */,
+				40FFE1AE21D4DE95007866AD /* PicturesCollectionViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -142,6 +151,9 @@
 				406504E321A8560C008AB62A /* ChatsViewController.swift */,
 				4027BAC421A9A42E00617D5B /* ProfilePageTableViewController.swift */,
 				4089E28A21CE99A8005E70A6 /* MessageViewController.swift */,
+				40FFE1A821D3DCDC007866AD /* AudioViewController.swift */,
+				40FFE1AA21D42066007866AD /* MapViewController.swift */,
+				40FFE1AC21D4DE4A007866AD /* PicturesCollectionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -350,7 +362,10 @@
 				40ED99CE21CFA44F00583A35 /* IncomingMessages.swift in Sources */,
 				4089E28B21CE99A8005E70A6 /* MessageViewController.swift in Sources */,
 				40ED99CC21CF905900583A35 /* OutgoingMessages.swift in Sources */,
+				40FFE1AB21D42066007866AD /* MapViewController.swift in Sources */,
 				4058C8D921C7A8C600DC7F59 /* RecentChatTableViewCell.swift in Sources */,
+				40FFE1AD21D4DE4A007866AD /* PicturesCollectionViewController.swift in Sources */,
+				40FFE1AF21D4DE95007866AD /* PicturesCollectionViewCell.swift in Sources */,
 				40FFE1A121D28790007866AD /* Camera.swift in Sources */,
 				4027BAC521A9A42E00617D5B /* ProfilePageTableViewController.swift in Sources */,
 				40FFE1A321D2A270007866AD /* Downloader.swift in Sources */,
@@ -360,6 +375,7 @@
 				4069BB3C219F0E9A00397426 /* FinishRegistrationViewController.swift in Sources */,
 				405DB1AE21A56A9400088AA9 /* UsersTableViewCell.swift in Sources */,
 				4048156D21A56F850007E845 /* UsersTableViewController.swift in Sources */,
+				40FFE1A921D3DCDC007866AD /* AudioViewController.swift in Sources */,
 				40576BC9210B3C9B00A32A76 /* Constants.swift in Sources */,
 				403F4D2421B1C03B00F72BD0 /* RecentChat.swift in Sources */,
 			);
@@ -517,7 +533,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Sarvad-Shetty.iChat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -537,7 +553,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Sarvad-Shetty.iChat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

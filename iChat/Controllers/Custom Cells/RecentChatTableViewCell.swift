@@ -76,10 +76,10 @@ class RecentChatTableViewCell: UITableViewCell {
         if recentChat[kCOUNTER] as! Int != 0{
             self.messageCounterLabel.text = "\(recentChat[kCOUNTER] as! Int)"
             self.messageCounterLabel.isHidden = false
-            self.messageCounterLabel.isHidden = false
+            self.messageCounterView.isHidden = false
         }else{
             self.messageCounterLabel.isHidden = true
-            self.messageCounterLabel.isHidden = true
+            self.messageCounterView.isHidden = true
         }
     }
     

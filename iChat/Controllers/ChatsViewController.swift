@@ -144,6 +144,7 @@ extension ChatsViewController:UITableViewDelegate,UITableViewDataSource{
         //mute action
         let muteAction = UITableViewRowAction(style: .default, title: muteTitle) { (action, indexPath) in
             print("mute \(indexPath)")
+            self.UpdatePushMembers(recent: tempDict, mute: mute)
         }
         muteAction.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         return [deleteAction,muteAction]
@@ -193,6 +194,20 @@ extension ChatsViewController:UITableViewDelegate,UITableViewDataSource{
     
     @objc func GroupButtonTapped(){
         print("new group add tapped")
+    }
+    
+    //MARK: - Helper functions
+    func UpdatePushMembers(recent:NSDictionary,mute:Bool){
+        var memberToPush = recent[kMEMBERSTOPUSH] as! [String]
+        if mute{
+            let index = memberToPush.index(of:FUser.currentId())
+            memberToPush.remove(at: index!)
+        }else{
+            memberToPush.append(FUser.currentId())
+        }
+        
+        //save the changes
+        UpdateExistingRecentWithNewValues(chatroomID: recent[kCHATROOMID] as! String, members: recent[kMEMBERS] as! [String], withValues: [kMEMBERSTOPUSH:memberToPush])
     }
 }
 

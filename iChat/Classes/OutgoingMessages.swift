@@ -33,6 +33,18 @@ class OutgoingMessages {
         
         messageDictionary = NSMutableDictionary(objects: [message,videoLink,vidThumbNail,senderID,senderName,dateFormatter().string(from: date),status,type], forKeys: [kMESSAGE as NSCopying,kVIDEO as NSCopying, kPICTURE as NSCopying, kSENDERID as NSCopying, kSENDERNAME as NSCopying, kDATE as NSCopying, kSTATUS as NSCopying, kTYPE as NSCopying])
     }
+    
+    //audio messages
+    init(message:String,audio:String,senderID:String,senderName:String,date:Date,status:String,type:String) {
+        //date can only be saved in string format
+        messageDictionary = NSMutableDictionary(objects: [message,audio,senderID,senderName,dateFormatter().string(from: date),status,type], forKeys: [kMESSAGE as NSCopying,kAUDIO as NSCopying, kSENDERID as NSCopying, kSENDERNAME as NSCopying, kDATE as NSCopying, kSTATUS as NSCopying, kTYPE as NSCopying])
+    }
+    
+    //location message
+    init(message:String,latitude:NSNumber,longitude:NSNumber,senderID:String,senderName:String,date:Date,status:String,type:String) {
+        //date can only be saved in string format
+        messageDictionary = NSMutableDictionary(objects: [message,latitude,longitude,senderID,senderName,dateFormatter().string(from: date),status,type], forKeys: [kMESSAGE as NSCopying,kLATITUDE as NSCopying, kLONGITUDE as NSCopying, kSENDERID as NSCopying, kSENDERNAME as NSCopying, kDATE as NSCopying, kSTATUS as NSCopying, kTYPE as NSCopying])
+    }
 
     
     //MARK: - Send function to save in Firestore
@@ -46,8 +58,26 @@ class OutgoingMessages {
         }
         
         //recent chat needs to be updated
-        
+        UpdateRecents(chatRoomId: chatRoomId, lastMessage: messageDict[kMESSAGE] as! String)
         //send push notification
+    }
+    
+    class func DeleteMessage(wothId:String, chatroomId:String){
+        
+    }
+    
+    class func UpdateMessage(withid:String, chatroom:String, memberIds:[String]){
+        let readDate = dateFormatter().string(from: Date())
+        let values = [kSTATUS:kREAD,kREADDATE:readDate]
+        
+        for userID in memberIds{
+            reference(.Message).document(userID).collection(chatroom).document(withid).getDocument { (snapshot, error) in
+                guard let snapshot = snapshot else{return}
+                if snapshot.exists{
+                    reference(.Message).document(userID).collection(chatroom).document(withid).updateData(values)
+                }
+            }
+        }
     }
     
 }
