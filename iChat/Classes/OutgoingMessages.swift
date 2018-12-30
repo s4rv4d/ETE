@@ -62,8 +62,8 @@ class OutgoingMessages {
         //send push notification
     }
     
-    class func DeleteMessage(wothId:String, chatroomId:String){
-        
+    class func DeleteMessage(withId:String, chatroomId:String){
+        reference(.Message).document(FUser.currentId()).collection(chatroomId).document(withId).delete()
     }
     
     class func UpdateMessage(withid:String, chatroom:String, memberIds:[String]){

@@ -29,7 +29,7 @@ class MessageViewController:  JSQMessagesViewController{
     
     //JSQ stuff
     var outgoingBubble = JSQMessagesBubbleImageFactory()?.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
-    var incomingBubble = JSQMessagesBubbleImageFactory()?.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
+    var incomingBubble = JSQMessagesBubbleImageFactory()?.incomingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
     
     //typing
     var typingCounter = 0
@@ -115,6 +115,9 @@ class MessageViewController:  JSQMessagesViewController{
 
         //create typing observer
         CreateTypingObserver()
+        
+        //delete option
+        JSQMessagesCollectionViewCell.registerMenuAction(#selector(delete))
         
         //senderid and sender display name comes from jsq pod
         self.senderId = FUser.currentId()
@@ -255,6 +258,36 @@ class MessageViewController:  JSQMessagesViewController{
         }else{
             return incomingBubble
         }
+    }
+    
+    //for multi media messages
+    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        super.collectionView(collectionView, shouldShowMenuForItemAt: indexPath)
+        return true
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        if messages[indexPath.row].isMediaMessage{
+            if action.description == "delete:"{
+                return true
+            }else{
+                return false
+            }
+        }else{
+            if action.description == "delete:" || action.description == "copy:"{
+                return true
+            }else{
+                return false
+            }
+        }
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didDeleteMessageAt indexPath: IndexPath!) {
+        let messageID = objectMessage[indexPath.row][kMESSAGEID] as! String
+        objectMessage.remove(at: indexPath.row)
+        messages.remove(at: indexPath.row)
+        //delete from firebase
+        OutgoingMessages.DeleteMessage(withId: messageID, chatroomId: chatRoomId)
     }
     
     //MARK: - JSQ Delegate functions

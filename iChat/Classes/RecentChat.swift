@@ -193,3 +193,41 @@ func UpdateExistingRecentWithNewValues(chatroomID:String,members:[String],withVa
 func UpdateRecent(recentID:String,withValues:[String:Any]){
     reference(.Recent).document(recentID).updateData(withValues)
 }
+
+//Block user
+func BlockUser(userToBlock:FUser){
+    
+    //generating chatroom id
+    //object ids for room id
+    let user1ID = FUser.currentId()
+    let user2ID = userToBlock.objectId
+    
+    //room id
+    var chatRoomID = ""
+    
+    //generating a chat roomid
+    let value = user1ID.compare(user2ID).rawValue
+    
+    if value < 0{
+        chatRoomID = user1ID + user2ID
+    }else{
+        chatRoomID = user2ID + user1ID
+    }
+    
+    GetRecentsForChatroom(chatroom: chatRoomID)
+    
+}
+
+func GetRecentsForChatroom(chatroom:String){
+    //getting recents from chatroomID
+    reference(.Recent).whereField(kCHATROOMID, isEqualTo: chatroom).getDocuments { (snapshot, error) in
+        guard let snapshot = snapshot else{return}
+        
+        if !snapshot.isEmpty{
+            for recent in snapshot.documents{
+                let recent = recent.data() as NSDictionary
+                DeleteRecentChat(recentChatDict: recent)
+            }
+        }
+    }
+}

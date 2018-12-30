@@ -32,6 +32,10 @@ class ChatsViewController: UIViewController {
         definesPresentationContext = true
         //tableview stuff
         TableviewDelegateSetup()
+//        SetTableViewHeader()
+    }
+    
+    override func viewDidLayoutSubviews() {
         SetTableViewHeader()
     }
     
@@ -47,9 +51,7 @@ class ChatsViewController: UIViewController {
 
     //MARK: - IBActions
     @IBAction func NewMessage(_ sender: UIBarButtonItem) {
-        //access the users storyboard using storyboardID and present using navigation push method
-        let userViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "usersTableView") as! UsersTableViewController
-        self.navigationController?.pushViewController(userViewController, animated: true)
+        SelectUserForChat(isGroup:false)
     }
     
 }
@@ -172,28 +174,33 @@ extension ChatsViewController:UITableViewDelegate,UITableViewDataSource{
     //Mark: - Customtable view header
     func SetTableViewHeader(){
         //header view
-        let hdView = UIView(frame: CGRect(x: 0, y: 0, width: recentChatTableView.frame.width, height: 45))
+        let hdView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 45))
         //button view for creating group
-        let grpButtonView = UIView(frame: CGRect(x: 0, y: 5, width: recentChatTableView.frame.width, height: 35))
+        let grpButtonView = UIView(frame: CGRect(x: 0, y: 5, width: view.frame.width, height: 35))
         //create the button
-        let grpButton = UIButton(frame: CGRect(x: recentChatTableView.frame.width - 110, y: 10, width: 100, height: 20))
+        let grpButton = UIButton(frame: CGRect(x: view.frame.width - 110, y: 10, width: 100, height: 20))
         //target
         grpButton.addTarget(self, action: #selector(self.GroupButtonTapped), for: .touchUpInside)
         grpButton.setTitle("New Group", for: .normal)
         grpButton.setTitleColor(#colorLiteral(red: 0.2540222406, green: 0.6071330905, blue: 0.9695068002, alpha: 1), for: .normal)
+        
         //bottom line to separate header from table view
-        let bottomLineView = UIView(frame: CGRect(x: 0, y: hdView.frame.height - 1, width: recentChatTableView.frame.width, height: 1))
+        let bottomLineView = UIView(frame: CGRect(x: 0, y: hdView.frame.height - 1, width: view.frame.width, height: 1))
         bottomLineView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         
         //add views
+        print("dhgashjdgashjgadhjdgadhjsgdashj \(view.frame.width)")
         grpButtonView.addSubview(grpButton)
         hdView.addSubview(grpButtonView)
         hdView.addSubview(bottomLineView)
+
+        
         recentChatTableView.tableHeaderView = hdView
     }
     
     @objc func GroupButtonTapped(){
         print("new group add tapped")
+        SelectUserForChat(isGroup: true)
     }
     
     //MARK: - Helper functions
@@ -208,6 +215,13 @@ extension ChatsViewController:UITableViewDelegate,UITableViewDataSource{
         
         //save the changes
         UpdateExistingRecentWithNewValues(chatroomID: recent[kCHATROOMID] as! String, members: recent[kMEMBERS] as! [String], withValues: [kMEMBERSTOPUSH:memberToPush])
+    }
+    
+    func SelectUserForChat(isGroup:Bool){
+        //access the users storyboard using storyboardID and present using navigation push method
+        let contactVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "contactsview") as! ContactsTableViewController
+        contactVC.isGroup = isGroup
+        self.navigationController?.pushViewController(contactVC, animated: true)
     }
 }
 

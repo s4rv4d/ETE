@@ -22,7 +22,7 @@ public let kFILEREFERENCE = "gs://flash-chat-967cc.appspot.com/"
 public let kONESIGNALAPPID = ""
 public let kSINCHKEY = ""
 public let kSINCHSECRET = ""
-public let kAPPURL = ""
+public let kAPPURL = "App link"
 
 //Firebase Headers
 public let kUSER_PATH = "User"
