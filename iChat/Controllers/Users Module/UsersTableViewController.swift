@@ -215,7 +215,9 @@ class UsersTableViewController: UITableViewController {
                 sectionTitle = firstCharacterToString
                 //clear the fuser array for the new section title first
                 self.allUsersGroupped[sectionTitle] = []
-                self.sectionTiltes.append(sectionTitle)
+                if !sectionTiltes.contains(sectionTitle){
+                    self.sectionTiltes.append(sectionTitle)
+                }
             }
             //then append to array
             self.allUsersGroupped[firstCharacterToString]!.append(currentUser)

@@ -99,7 +99,6 @@ extension ChatsViewController:UITableViewDelegate,UITableViewDataSource{
         //restart chat for the ones who have deleted the recent chat
         RestartRecentChat(recent: recent)
         
-        
         //show chat view
         let messageVC = MessageViewController()
         //hide tab bar

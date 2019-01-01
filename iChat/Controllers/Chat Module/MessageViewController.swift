@@ -94,7 +94,7 @@ class MessageViewController:  JSQMessagesViewController{
     var typingListener:ListenerRegistration?
     var updateListener:ListenerRegistration?
     
-    
+    //MARK: - Main
     //fix iPhoneX UI
     override func viewDidLayoutSubviews() {
         //to fix the bottom,calling the fixing method
@@ -116,6 +116,9 @@ class MessageViewController:  JSQMessagesViewController{
         //create typing observer
         CreateTypingObserver()
         
+        //load User defaults
+        LoadUserDefaults()
+        
         //delete option
         JSQMessagesCollectionViewCell.registerMenuAction(#selector(delete))
         
@@ -126,6 +129,12 @@ class MessageViewController:  JSQMessagesViewController{
         //nav fixes
         navigationItem.largeTitleDisplayMode = .never
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Back"), style: .plain, target: self, action: #selector(self.BackAction))]
+        
+        //group
+        
+        if isGroup!{
+            GetCurrentGroup(withId: chatRoomId)
+        }
         
         //default avatar size next to message bubble
         collectionView?.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
@@ -456,6 +465,40 @@ class MessageViewController:  JSQMessagesViewController{
     }
     
     //MARK: - Functions
+    //userdefaults
+    func LoadUserDefaults(){
+        firstLoad = userDefaults.bool(forKey: kFIRSTRUN)
+        if !firstLoad!{
+            userDefaults.set(true, forKey: kFIRSTRUN)
+            userDefaults.set(showAvatars, forKey: kSHOWAVATAR)
+            userDefaults.synchronize()
+        }
+        
+        showAvatars = userDefaults.bool(forKey: kSHOWAVATAR)
+        CheckForBackground()
+    }
+    
+    //check for background
+    func CheckForBackground(){
+        if userDefaults.object(forKey: kBACKGROUBNDIMAGE) != nil{
+            self.collectionView.backgroundColor = .clear
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+            imageView.image = UIImage(named: userDefaults.object(forKey: kBACKGROUBNDIMAGE) as! String)!
+            imageView.contentMode = .scaleAspectFill
+            self.view.insertSubview(imageView, at: 0)
+        }
+    }
+    
+    //get current group
+    func GetCurrentGroup(withId:String){
+        reference(.Group).document(withId).getDocument { (snapshot, error) in
+            guard let snapshot = snapshot else{return}
+            if snapshot.exists{
+                self.group = snapshot.data() as! NSDictionary
+                self.SetupUIForGroupChat()
+            }
+        }
+    }
     
     //location access
     func HaveAccessToUserLocation() -> Bool{
@@ -824,6 +867,16 @@ class MessageViewController:  JSQMessagesViewController{
         avatarButton.addTarget(self, action: #selector(self.ShowUserProfile), for: .touchUpInside)
     }
     
+    func SetupUIForGroupChat(){
+        imageFromData(pictureData: group![kAVATAR] as! String) { (image) in
+            if image != nil{
+                avatarButton.setImage(image!.circleMasked, for: .normal)
+            }
+        }
+        titleLabel.text = titleName
+        subTitleLabel.text = ""
+    }
+    
     @objc func InfoButtonPressed(){
         print("info button tapped to show info")
         let mediaVc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mediaView") as! PicturesCollectionViewController
@@ -833,6 +886,9 @@ class MessageViewController:  JSQMessagesViewController{
     
     @objc func ShowGroup(){
         print("show group info")
+        let groupInfo = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "groupinfo") as! GroupInfoViewController
+        groupInfo.group = group!
+        self.navigationController?.pushViewController(groupInfo, animated: true)
     }
     
     @objc func ShowUserProfile(){

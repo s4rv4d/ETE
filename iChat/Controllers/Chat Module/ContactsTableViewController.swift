@@ -70,7 +70,7 @@ class ContactsTableViewController: UITableViewController {
         
         //to remove empty cell lines
         tableView.tableFooterView = UIView()
-        LoadUsers()
+//        LoadUsers()
     }
     
     override func viewDidLoad() {
@@ -83,6 +83,7 @@ class ContactsTableViewController: UITableViewController {
         definesPresentationContext = true
         //button setup
         SetupButtons()
+        LoadUsers()
     }
     
     //MARK: - Functions
@@ -103,6 +104,11 @@ class ContactsTableViewController: UITableViewController {
     
     @objc func NextTapped(){
         print("next button tapped")
+        let newGVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "group") as! GroupCreateViewController
+        newGVC.memberIds = memberIdsOfGroupChat
+        newGVC.allMembers = membersOfGroupChat
+//        newGVC.CollectioViewSetup()
+        self.navigationController?.pushViewController(newGVC, animated: true)
     }
     
     @objc func InviteTapped(){
@@ -118,6 +124,8 @@ class ContactsTableViewController: UITableViewController {
     
     @objc func SearchTapped(){
         print("show users table view")
+        let userVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "usersTableView") as! UsersTableViewController
+        self.navigationController?.pushViewController(userVC, animated: true)
     }
     
     func LoadUsers(){
@@ -228,7 +236,57 @@ class ContactsTableViewController: UITableViewController {
     
     //MARK: - TableViewDelegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
+        let userToChat:FUser
+        let sectionTitle = self.sectionTitleList[indexPath.section]
+        //to check for search mode
+        if searchController.isActive && searchController.searchBar.text != ""{
+            userToChat = filteredMatchedUsers[indexPath.row]
+        }else{
+            let users = self.allUsersGrouped[sectionTitle]
+            userToChat = users![indexPath.row]
+        }
+        
+        //to check if group
+        
+        if !isGroup{
+            //one on one
+            if !CheckBlockedStatus(user: userToChat){
+                let chatVC = MessageViewController()
+                chatVC.memberids = [FUser.currentId(),userToChat.objectId]
+                chatVC.memberToPush = [FUser.currentId(),userToChat.objectId]
+                chatVC.chatRoomId = StartPrivateChat(user1: FUser.currentUser()!, user2: userToChat)
+                chatVC.isGroup = false
+                chatVC.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(chatVC, animated: true)
+            }else{
+                ProgressHUD.showError("This user is not available for chat")
+            }
+        }else{
+            //group
+            //check marks
+            if let cell = tableView.cellForRow(at: indexPath){
+                if cell.accessoryType == .checkmark{
+                    cell.accessoryType = .none
+                }else{
+                    cell.accessoryType = .checkmark
+                }
+            }
+            //add or remove from array
+            let selected = memberIdsOfGroupChat.contains(userToChat.objectId)
+            
+            if selected{
+                let objectIndex = memberIdsOfGroupChat.index(of:userToChat.objectId)
+                memberIdsOfGroupChat.remove(at: objectIndex!)
+                membersOfGroupChat.remove(at: objectIndex!)
+            }else{
+                membersOfGroupChat.append(userToChat)
+                memberIdsOfGroupChat.append(userToChat.objectId)
+            }
+            
+            self.navigationItem.rightBarButtonItem?.isEnabled = memberIdsOfGroupChat.count > 0
+        }
         
     }
     
@@ -320,7 +378,9 @@ class ContactsTableViewController: UITableViewController {
                 // add new section having key as section title and value as empty array of string
                 self.allUsersGrouped[sectionTitle] = []
                 // append title within section title list
-                self.sectionTitleList.append(sectionTitle)
+                if !sectionTitleList.contains(sectionTitle){
+                    self.sectionTitleList.append(sectionTitle)
+                }
             }
             // add record to the section
             self.allUsersGrouped[firstCharString]?.append(currentUser)

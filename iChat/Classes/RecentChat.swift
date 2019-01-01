@@ -119,6 +119,7 @@ func RestartRecentChat(recent:NSDictionary){
     if recent[kTYPE] as! String == kPRIVATE{
         CreateChat(members: recent[kMEMBERSTOPUSH] as! [String], chatroomID: recent[kCHATROOMID] as! String, withUserUsername: FUser.currentUser()!.firstname, type: kPRIVATE, users: [FUser.currentUser()!], avatarOfGroup: nil)
     }else if recent[kTYPE] as! String == kGROUP{
+        
         CreateChat(members: recent[kMEMBERSTOPUSH] as! [String], chatroomID: recent[kCHATROOMID] as! String, withUserUsername: recent[kWITHUSERFULLNAME] as! String, type: kGROUP, users: nil, avatarOfGroup: recent[kAVATAR] as? String)
     }
 }
@@ -230,4 +231,18 @@ func GetRecentsForChatroom(chatroom:String){
             }
         }
     }
+}
+
+//Group
+func CreateRecentForNewMemebersG(groupID:String,groupName:String,membersToPush:[String],avatar:String){
+    //to add new members to the group after the group is created
+    CreateChat(members: membersToPush, chatroomID: groupID, withUserUsername: groupName, type: kGROUP, users: nil, avatarOfGroup: avatar)
+}
+
+func StartgroupChat(group:Group){
+    let chatroomID = group.groupDictionary[kGROUPID] as! String
+    let members = group.groupDictionary[kMEMBERS] as! [String]
+    
+    //create recent Item
+    CreateChat(members: members, chatroomID: chatroomID, withUserUsername: group.groupDictionary[kNAME] as! String, type: kGROUP, users: nil, avatarOfGroup: group.groupDictionary[kAVATAR] as! String)
 }

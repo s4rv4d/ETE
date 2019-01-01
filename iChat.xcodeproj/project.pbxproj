@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4027BAC521A9A42E00617D5B /* ProfilePageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4027BAC421A9A42E00617D5B /* ProfilePageTableViewController.swift */; };
+		402C9B1021DB606000BCC666 /* GroupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402C9B0F21DB606000BCC666 /* GroupInfoViewController.swift */; };
+		402C9B1221DB661E00BCC666 /* InviteUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402C9B1121DB661E00BCC666 /* InviteUserTableViewController.swift */; };
 		403F4D2421B1C03B00F72BD0 /* RecentChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403F4D2321B1C03B00F72BD0 /* RecentChat.swift */; };
 		4048156D21A56F850007E845 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048156C21A56F850007E845 /* UsersTableViewController.swift */; };
 		40576BAE2108F7A500A32A76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40576BAD2108F7A500A32A76 /* AppDelegate.swift */; };
@@ -24,8 +26,11 @@
 		405DB1AE21A56A9400088AA9 /* UsersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405DB1AD21A56A9400088AA9 /* UsersTableViewCell.swift */; };
 		406504E421A8560C008AB62A /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406504E321A8560C008AB62A /* ChatsViewController.swift */; };
 		4069BB3C219F0E9A00397426 /* FinishRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4069BB3B219F0E9A00397426 /* FinishRegistrationViewController.swift */; };
+		4070846021DA2C100005E123 /* GroupCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4070845F21DA2C100005E123 /* GroupCreateViewController.swift */; };
+		4070846221DA2CE50005E123 /* GroupMembersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4070846121DA2CE50005E123 /* GroupMembersCollectionViewCell.swift */; };
 		4088774321A30306000CAB48 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4088774221A30306000CAB48 /* SettingsTableViewController.swift */; };
 		4089E28B21CE99A8005E70A6 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4089E28A21CE99A8005E70A6 /* MessageViewController.swift */; };
+		40B63F6421DA734E00C7BC85 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B63F6321DA734E00C7BC85 /* Group.swift */; };
 		40ED99CC21CF905900583A35 /* OutgoingMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40ED99CB21CF905900583A35 /* OutgoingMessages.swift */; };
 		40ED99CE21CFA44F00583A35 /* IncomingMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40ED99CD21CFA44F00583A35 /* IncomingMessages.swift */; };
 		40FC213121D79BE6007514E6 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40FC213021D79BE6007514E6 /* AuthenticationServices.framework */; };
@@ -49,6 +54,8 @@
 
 /* Begin PBXFileReference section */
 		4027BAC421A9A42E00617D5B /* ProfilePageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageTableViewController.swift; sourceTree = "<group>"; };
+		402C9B0F21DB606000BCC666 /* GroupInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoViewController.swift; sourceTree = "<group>"; };
+		402C9B1121DB661E00BCC666 /* InviteUserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteUserTableViewController.swift; sourceTree = "<group>"; };
 		403F4D2321B1C03B00F72BD0 /* RecentChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChat.swift; sourceTree = "<group>"; };
 		4048156C21A56F850007E845 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		40576BAA2108F7A500A32A76 /* iChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,8 +74,11 @@
 		405DB1AD21A56A9400088AA9 /* UsersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewCell.swift; sourceTree = "<group>"; };
 		406504E321A8560C008AB62A /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		4069BB3B219F0E9A00397426 /* FinishRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishRegistrationViewController.swift; sourceTree = "<group>"; };
+		4070845F21DA2C100005E123 /* GroupCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCreateViewController.swift; sourceTree = "<group>"; };
+		4070846121DA2CE50005E123 /* GroupMembersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMembersCollectionViewCell.swift; sourceTree = "<group>"; };
 		4088774221A30306000CAB48 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4089E28A21CE99A8005E70A6 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		40B63F6321DA734E00C7BC85 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		40ED99CB21CF905900583A35 /* OutgoingMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessages.swift; sourceTree = "<group>"; };
 		40ED99CD21CFA44F00583A35 /* IncomingMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessages.swift; sourceTree = "<group>"; };
 		40FC213021D79BE6007514E6 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
@@ -113,6 +123,7 @@
 				4058C8D821C7A8C600DC7F59 /* RecentChatTableViewCell.swift */,
 				40FFE1AE21D4DE95007866AD /* PicturesCollectionViewCell.swift */,
 				40FC213721D90B51007514E6 /* BackgroundCollectionViewCell.swift */,
+				4070846121DA2CE50005E123 /* GroupMembersCollectionViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -162,6 +173,7 @@
 		40576BC6210B3C1900A32A76 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4070845E21DA2B490005E123 /* Group Module */,
 				4048156B21A56F500007E845 /* Custom Cells */,
 				40576BAD2108F7A500A32A76 /* AppDelegate.swift */,
 				40FC213E21D94B86007514E6 /* Login+Reg Module */,
@@ -194,8 +206,19 @@
 				40FFE1A221D2A270007866AD /* Downloader.swift */,
 				40FFE1A421D3731B007866AD /* PhotoMediaItem.swift */,
 				40FFE1A621D39323007866AD /* VideoMessage.swift */,
+				40B63F6321DA734E00C7BC85 /* Group.swift */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		4070845E21DA2B490005E123 /* Group Module */ = {
+			isa = PBXGroup;
+			children = (
+				4070845F21DA2C100005E123 /* GroupCreateViewController.swift */,
+				402C9B0F21DB606000BCC666 /* GroupInfoViewController.swift */,
+				402C9B1121DB661E00BCC666 /* InviteUserTableViewController.swift */,
+			);
+			path = "Group Module";
 			sourceTree = "<group>";
 		};
 		40FC213D21D94B57007514E6 /* Settings Module */ = {
@@ -422,12 +445,15 @@
 			files = (
 				40576BC4210B3C0000A32A76 /* FUser.swift in Sources */,
 				40576BCD210B429600A32A76 /* HelperFunctions.swift in Sources */,
+				4070846221DA2CE50005E123 /* GroupMembersCollectionViewCell.swift in Sources */,
 				40576BAE2108F7A500A32A76 /* AppDelegate.swift in Sources */,
 				40576BC02109CD0E00A32A76 /* WelcomeViewController.swift in Sources */,
 				40FFE1A721D39323007866AD /* VideoMessage.swift in Sources */,
 				40FFE1A521D3731B007866AD /* PhotoMediaItem.swift in Sources */,
 				40ED99CE21CFA44F00583A35 /* IncomingMessages.swift in Sources */,
+				402C9B1021DB606000BCC666 /* GroupInfoViewController.swift in Sources */,
 				4089E28B21CE99A8005E70A6 /* MessageViewController.swift in Sources */,
+				402C9B1221DB661E00BCC666 /* InviteUserTableViewController.swift in Sources */,
 				40ED99CC21CF905900583A35 /* OutgoingMessages.swift in Sources */,
 				40FC213621D90B41007514E6 /* BackgroundCollectionViewController.swift in Sources */,
 				40FFE1AB21D42066007866AD /* MapViewController.swift in Sources */,
@@ -447,11 +473,13 @@
 				405DB1AE21A56A9400088AA9 /* UsersTableViewCell.swift in Sources */,
 				4048156D21A56F850007E845 /* UsersTableViewController.swift in Sources */,
 				40FFE1A921D3DCDC007866AD /* AudioViewController.swift in Sources */,
+				40B63F6421DA734E00C7BC85 /* Group.swift in Sources */,
 				40FC214421D953C3007514E6 /* CountryCode.swift in Sources */,
 				40576BC9210B3C9B00A32A76 /* Constants.swift in Sources */,
 				40FC213421D8FDBD007514E6 /* BlockedUsersViewController.swift in Sources */,
 				403F4D2421B1C03B00F72BD0 /* RecentChat.swift in Sources */,
 				40FC214221D94C0C007514E6 /* ContactsTableViewController.swift in Sources */,
+				4070846021DA2C100005E123 /* GroupCreateViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
