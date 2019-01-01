@@ -10,6 +10,7 @@
 import UIKit
 import ProgressHUD
 import FirebaseFirestore
+import ImagePicker
 
 class FinishRegistrationViewController: UIViewController {
     
@@ -20,6 +21,8 @@ class FinishRegistrationViewController: UIViewController {
     @IBOutlet weak var cityTextfield: UITextField!
     @IBOutlet weak var phoneTextfield: UITextField!
     @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var imgViewTap: UITapGestureRecognizer!
+    
     
     //MARK:Varibles
     var email:String!
@@ -31,9 +34,22 @@ class FinishRegistrationViewController: UIViewController {
         //just to test
         print("email: ",email!)
         print("password: ",password!)
+        
+        avatarImageView.isUserInteractionEnabled = true
+        avatarImageView.addGestureRecognizer(imgViewTap)
     }
 
     //MARK:IBActions
+    @IBAction func AvatarTapped(_ sender: UITapGestureRecognizer) {
+        let imgPickerController = ImagePickerController()
+        imgPickerController.delegate = self
+        imgPickerController.imageLimit = 1
+        
+        //dismiss keyboard
+        dismissKeyboard()
+        present(imgPickerController, animated: true, completion: nil)
+    }
+    
     @IBAction func CancelButtonPressed(_ sender: Any) {
         
         //dismiss keyboard
@@ -74,6 +90,10 @@ class FinishRegistrationViewController: UIViewController {
         countryTextfield.text = ""
         cityTextfield.text = ""
         phoneTextfield.text = ""
+    }
+    
+    func dismissKeyboard() {
+        self.view.endEditing(false)
     }
     
     func RegisterUser(){
@@ -144,4 +164,30 @@ class FinishRegistrationViewController: UIViewController {
         
     }
 
+}
+
+//MARK: - Extensions
+extension FinishRegistrationViewController: ImagePickerDelegate{
+    
+    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        //do nothing here, just dismiss
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        
+        if images.count > 0{
+            self.avatarImage = images.first!
+            self.avatarImageView.image = self.avatarImage!.circleMasked
+        }
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
+        //do nothing here, just dismiss
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
 }

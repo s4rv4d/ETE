@@ -49,7 +49,11 @@ class RecentChatTableViewCell: UITableViewCell {
         self.indexPath = index
         //assigning values
         self.fullNameLabel.text = recentChat[kWITHUSERFULLNAME] as? String
-        self.lastMessageLabel.text = recentChat[kLASTMESSAGE] as? String
+        
+        //decrypting
+        let decryptedText = Encryotion.DecryptText(chatroomID: recentChat[kCHATROOMID] as! String, messageEncrypted: recentChat[kLASTMESSAGE] as! String)
+        
+        self.lastMessageLabel.text = decryptedText
         self.messageCounterLabel.text = recentChat[kCOUNTER] as? String
         
         //for date

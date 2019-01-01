@@ -8,6 +8,7 @@
 
 import UIKit
 import ProgressHUD
+import ImagePicker
 
 class GroupCreateViewController: UIViewController {
     
@@ -37,11 +38,22 @@ class GroupCreateViewController: UIViewController {
     }
     
     //MARK: - Helper Functions
+    func dismissKeyboard() {
+        self.view.endEditing(false)
+    }
+    
     func ShowIconOption(){
         let optionMenu = UIAlertController(title: "Choose Group Icon", message: nil, preferredStyle: .actionSheet)
         let takePhoto = UIAlertAction(title: "Take/Choose Photo", style: .default) { (action) in
             print("camera")
-            self.editButtonOutlet.isHidden = false
+            let imgPickerController = ImagePickerController()
+            imgPickerController.delegate = self
+            imgPickerController.imageLimit = 1
+            
+            //dismiss keyboard
+            self.dismissKeyboard()
+            self.present(imgPickerController, animated: true, completion: nil)
+            
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
@@ -159,4 +171,32 @@ extension GroupCreateViewController: GroupMembersCollectionViewCellDelegate{
         self.participantsCollec.reloadData()
         UpdateParticipantsLabel()
     }    
+}
+
+extension GroupCreateViewController: ImagePickerDelegate{
+    
+    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        //do nothing here, just dismiss
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        
+        if images.count > 0{
+            self.editButtonOutlet.isHidden = false
+            self.groupIcon = images.first!
+            self.groupIconImageView.image = self.groupIcon!.circleMasked
+        }else{
+            self.editButtonOutlet.isHidden = true
+        }
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
+        //do nothing here, just dismiss
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
 }

@@ -10,6 +10,8 @@
 		4027BAC521A9A42E00617D5B /* ProfilePageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4027BAC421A9A42E00617D5B /* ProfilePageTableViewController.swift */; };
 		402C9B1021DB606000BCC666 /* GroupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402C9B0F21DB606000BCC666 /* GroupInfoViewController.swift */; };
 		402C9B1221DB661E00BCC666 /* InviteUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402C9B1121DB661E00BCC666 /* InviteUserTableViewController.swift */; };
+		402C9B1421DBC75D00BCC666 /* Encryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402C9B1321DBC75D00BCC666 /* Encryptor.swift */; };
+		402C9B1721DC003700BCC666 /* ImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402C9B1621DC003700BCC666 /* ImagePicker.framework */; };
 		403F4D2421B1C03B00F72BD0 /* RecentChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403F4D2321B1C03B00F72BD0 /* RecentChat.swift */; };
 		4048156D21A56F850007E845 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048156C21A56F850007E845 /* UsersTableViewController.swift */; };
 		40576BAE2108F7A500A32A76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40576BAD2108F7A500A32A76 /* AppDelegate.swift */; };
@@ -56,6 +58,8 @@
 		4027BAC421A9A42E00617D5B /* ProfilePageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageTableViewController.swift; sourceTree = "<group>"; };
 		402C9B0F21DB606000BCC666 /* GroupInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoViewController.swift; sourceTree = "<group>"; };
 		402C9B1121DB661E00BCC666 /* InviteUserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteUserTableViewController.swift; sourceTree = "<group>"; };
+		402C9B1321DBC75D00BCC666 /* Encryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encryptor.swift; sourceTree = "<group>"; };
+		402C9B1621DC003700BCC666 /* ImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		403F4D2321B1C03B00F72BD0 /* RecentChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChat.swift; sourceTree = "<group>"; };
 		4048156C21A56F850007E845 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		40576BAA2108F7A500A32A76 /* iChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				402C9B1721DC003700BCC666 /* ImagePicker.framework in Frameworks */,
 				40FC213121D79BE6007514E6 /* AuthenticationServices.framework in Frameworks */,
 				7165766A062DF42D97AF8809 /* Pods_iChat.framework in Frameworks */,
 			);
@@ -207,6 +212,7 @@
 				40FFE1A421D3731B007866AD /* PhotoMediaItem.swift */,
 				40FFE1A621D39323007866AD /* VideoMessage.swift */,
 				40B63F6321DA734E00C7BC85 /* Group.swift */,
+				402C9B1321DBC75D00BCC666 /* Encryptor.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -267,6 +273,7 @@
 		4219B64987535CAC36D8C7DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				402C9B1621DC003700BCC666 /* ImagePicker.framework */,
 				40FC213021D79BE6007514E6 /* AuthenticationServices.framework */,
 				F528CC8013958A8FD1BF0A0E /* Pods_iChat.framework */,
 			);
@@ -379,6 +386,7 @@
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/ProgressHUD/ProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/RNCryptor/RNCryptor.framework",
 				"${BUILT_PRODUCTS_DIR}/SCSiriWaveformView/SCSiriWaveformView.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
@@ -403,6 +411,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNCryptor.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSiriWaveformView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
@@ -469,6 +478,7 @@
 				406504E421A8560C008AB62A /* ChatsViewController.swift in Sources */,
 				40FC213821D90B52007514E6 /* BackgroundCollectionViewCell.swift in Sources */,
 				4069BB3C219F0E9A00397426 /* FinishRegistrationViewController.swift in Sources */,
+				402C9B1421DBC75D00BCC666 /* Encryptor.swift in Sources */,
 				40FC213C21D9187D007514E6 /* EditProfileTableViewController.swift in Sources */,
 				405DB1AE21A56A9400088AA9 /* UsersTableViewCell.swift in Sources */,
 				4048156D21A56F850007E845 /* UsersTableViewController.swift in Sources */,

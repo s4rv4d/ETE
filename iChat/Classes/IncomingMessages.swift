@@ -74,7 +74,10 @@ class IncomingMessage {
             date = Date()
         }
         
-        let text = messDict[kMESSAGE] as! String
+        //decryption
+        let decryptedText = Encryotion.DecryptText(chatroomID: chatRoomId, messageEncrypted: messDict[kMESSAGE] as! String)
+        
+        let text = decryptedText
         
         return JSQMessage(senderId: userId, senderDisplayName: name, date: date, text: text)
     }

@@ -17,5 +17,6 @@ target 'iChat' do
 	pod 'JSQMessagesViewController', '7.3.3'
 	pod 'IDMPhotoBrowser'
 	pod 'ImagePicker'
+	pod 'RNCryptor'
 
 end

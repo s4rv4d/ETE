@@ -569,7 +569,10 @@ class MessageViewController:  JSQMessagesViewController{
         
         //text message
         if let text = text{
-            outgoingMessage = OutgoingMessages(message: text, senderID: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kTEXT)
+            
+            //encryption
+            let encryptedtext = Encryotion.EncryptText(chatroomID: chatRoomId, message: text)
+            outgoingMessage = OutgoingMessages(message: encryptedtext, senderID: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kTEXT)
         }
         //picture message
         if let picture = picture{
@@ -577,7 +580,11 @@ class MessageViewController:  JSQMessagesViewController{
             UploadImage(image: picture, chatRoomId: chatRoomId, view: self.navigationController!.view) { (imageLink) in
                 if imageLink != nil{
                     let text = "[\(kPICTURE)]"
-                    outgoingMessage = OutgoingMessages(message: text, pictureLink: imageLink!, senderID: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kPICTURE)
+                    
+                    //encryption
+                    let encryptedtext = Encryotion.EncryptText(chatroomID: self.chatRoomId, message: text)
+                    
+                    outgoingMessage = OutgoingMessages(message: encryptedtext, pictureLink: imageLink!, senderID: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kPICTURE)
                     JSQSystemSoundPlayer.jsq_playMessageSentSound()
                     self.finishSendingMessage()
                     outgoingMessage?.SendMessage(chatRoomId: self.chatRoomId, messageDict: outgoingMessage!.messageDictionary, memberids: self.memberids, membersToPush: self.memberToPush)
@@ -598,7 +605,12 @@ class MessageViewController:  JSQMessagesViewController{
             UploadVideo(video: videoData!, chatroomID: chatRoomId, view: (self.navigationController?.view)!) { (videoLnk) in
                 if videoLnk != nil{
                     let text = "[\(kVIDEO)]"
-                    outgoingMessage = OutgoingMessages(message: text, videoLink: videoLnk!, thumbNail: dataThumbNail! as NSData, senderID: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kVIDEO)
+                    
+                    //encryption
+                    let encryptedtext = Encryotion.EncryptText(chatroomID: self.chatRoomId, message: text)
+
+                    
+                    outgoingMessage = OutgoingMessages(message: encryptedtext, videoLink: videoLnk!, thumbNail: dataThumbNail! as NSData, senderID: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kVIDEO)
                     JSQSystemSoundPlayer.jsq_playMessageSentSound()
                     self.finishSendingMessage()
                     outgoingMessage?.SendMessage(chatRoomId: self.chatRoomId, messageDict: (outgoingMessage?.messageDictionary)!, memberids: self.memberids, membersToPush: self.memberToPush)
@@ -611,7 +623,11 @@ class MessageViewController:  JSQMessagesViewController{
             UploadAudioMessage(audioPath: audioPath, chatroomID: chatRoomId, view: (self.navigationController?.view)!) { (audioLink) in
                 if audioLink != nil{
                     let text = "[\(kAUDIO)]"
-                    outgoingMessage = OutgoingMessages(message: text, audio: audioLink!, senderID: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kAUDIO)
+                    
+                    //encryption
+                    let encryptedtext = Encryotion.EncryptText(chatroomID: self.chatRoomId, message: text)
+                    
+                    outgoingMessage = OutgoingMessages(message: encryptedtext, audio: audioLink!, senderID: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kAUDIO)
                     JSQSystemSoundPlayer.jsq_playMessageSentSound()
                     self.finishSendingMessage()
                     outgoingMessage?.SendMessage(chatRoomId: self.chatRoomId, messageDict: outgoingMessage!.messageDictionary, memberids: self.memberids, membersToPush: self.memberToPush)
@@ -627,7 +643,10 @@ class MessageViewController:  JSQMessagesViewController{
             
             let text = "[\(kLOCATION)]"
             
-            outgoingMessage = OutgoingMessages(message: text, latitude: lat, longitude: long, senderID: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kLOCATION)
+            //encryption
+            let encryptedtext = Encryotion.EncryptText(chatroomID: self.chatRoomId, message: text)
+            
+            outgoingMessage = OutgoingMessages(message: encryptedtext, latitude: lat, longitude: long, senderID: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kLOCATION)
             
         }
         

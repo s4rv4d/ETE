@@ -8,6 +8,7 @@
 
 import UIKit
 import ProgressHUD
+import ImagePicker
 
 class EditProfileTableViewController: UITableViewController {
     
@@ -48,6 +49,7 @@ class EditProfileTableViewController: UITableViewController {
     func SetupUI(){
         let currentUser = FUser.currentUser()!
         profileImageView.isUserInteractionEnabled = true
+        profileImageView.addGestureRecognizer(pictureTapGesture)
         nameTextField.text = currentUser.firstname
         surnametextField.text = currentUser.lastname
         emailTextField.text = currentUser.email
@@ -59,6 +61,10 @@ class EditProfileTableViewController: UITableViewController {
                 }
             }
         }
+    }
+    
+    func dismissKeyboard() {
+        self.view.endEditing(false)
     }
     
     //MARK: - IBActions
@@ -103,6 +109,39 @@ class EditProfileTableViewController: UITableViewController {
     
     @IBAction func AvatarTapped(_ sender: UITapGestureRecognizer) {
         print("show image picker")
+        let imgPickerController = ImagePickerController()
+        imgPickerController.delegate = self
+        imgPickerController.imageLimit = 1
+        
+        //dismiss keyboard
+        dismissKeyboard()
+        present(imgPickerController, animated: true, completion: nil)
     }
+    
+}
+
+//MARK: - Extensions
+extension EditProfileTableViewController: ImagePickerDelegate{
+    
+    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        //do nothing here, just dismiss
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        
+        if images.count > 0{
+            self.avatarImage = images.first!
+            self.profileImageView.image = self.avatarImage!.circleMasked
+        }
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
+        //do nothing here, just dismiss
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
 }

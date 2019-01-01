@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import CoreLocation
+import RNCryptor
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
