@@ -349,7 +349,7 @@ func removeOneSignalId() {
     updateCurrentUserOneSignalId(newId: "")
 }
 
-//MARK: Updating Current user funcs
+//MARK: - Updating Current user funcs
 func updateCurrentUserOneSignalId(newId: String) {
     updateCurrentUserInFirestore(withValues: [kPUSHID : newId]) { (error) in
         if error != nil {

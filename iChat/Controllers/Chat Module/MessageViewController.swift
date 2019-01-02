@@ -183,7 +183,7 @@ class MessageViewController:  JSQMessagesViewController{
         
         switch message[kSTATUS] as! String {
         case kDELIVERED:
-            status = NSAttributedString(string: kDELIVERED)
+            status = NSAttributedString(string: "Delivered")
         case kREAD:
             let statusText = "Read \(ReadTimeFormat(date: message[kREADDATE] as! String))"
             status = NSAttributedString(string: statusText, attributes: attrFormatColor)

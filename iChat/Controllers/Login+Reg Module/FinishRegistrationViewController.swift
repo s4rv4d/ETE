@@ -115,7 +115,7 @@ class FinishRegistrationViewController: UIViewController {
                 
                 //to store to firestore convert avatarInitial to Data
 //                let avatarIMG = UIImageJPEGRepresentation(avatarInitial, 0.7)
-                let avatarIMG = avatarInitial.jpegData(compressionQuality: 0.7)
+                let avatarIMG = avatarInitial.jpegData(compressionQuality: 0.4)
                 //converting data to string for firestore
                 let avatarString = avatarIMG!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
                 

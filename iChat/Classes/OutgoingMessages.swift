@@ -60,6 +60,11 @@ class OutgoingMessages {
         //recent chat needs to be updated
         UpdateRecents(chatRoomId: chatRoomId, lastMessage: messageDict[kMESSAGE] as! String)
         //send push notification
+        
+        let decryptedMessage = Encryotion.DecryptText(chatroomID: chatRoomId, messageEncrypted: messageDict[kMESSAGE] as! String)
+        
+        let pushText = "\(decryptedMessage)"
+        SendPushNotification(membersToPush: membersToPush, message: pushText)
     }
     
     class func DeleteMessage(withId:String, chatroomId:String){

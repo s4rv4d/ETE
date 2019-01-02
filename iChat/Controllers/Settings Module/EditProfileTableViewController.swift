@@ -82,11 +82,11 @@ class EditProfileTableViewController: UITableViewController {
             var withValues = [kFIRSTNAME:nameTextField.text!,kLASTNAME:surnametextField.text!,kFULLNAME:fullname]
             
             if avatarImage != nil{
-                let avatarData = avatarImage!.jpegData(compressionQuality: 0.7)!
+                let avatarData = avatarImage!.jpegData(compressionQuality: 0.4)!
                 let avatarString = avatarData.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
                 withValues[kAVATAR] = avatarString
             }
-            
+                        
             //update firebase
             updateCurrentUserInFirestore(withValues: withValues) { (error) in
                 if error != nil{
@@ -125,7 +125,8 @@ extension EditProfileTableViewController: ImagePickerDelegate{
     
     func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
         //do nothing here, just dismiss
-        self.dismiss(animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
+        print("open gallery")
     }
     
     func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {

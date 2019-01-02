@@ -19,7 +19,7 @@ public let APP_STARTED_NOTIFICATION = "AppStartedNotification"
 
 //IDS and Keys
 public let kFILEREFERENCE = "gs://flash-chat-967cc.appspot.com/"
-public let kONESIGNALAPPID = ""
+public let kONESIGNALAPPID = "3652bb2d-704a-4804-9b36-be959249b3f8"
 public let kSINCHKEY = ""
 public let kSINCHSECRET = ""
 public let kAPPURL = "App link"

@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import CoreLocation
 import RNCryptor
+import OneSignal
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
@@ -40,6 +41,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 }
             }
         })
+    
+        //one signal
+        func UserDidLogin(userId:String){
+            self.StartOneSignal()
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.init(USER_DID_LOGIN_NOTIFICATION), object: nil, queue: nil) { (note) in
+            let userID = note.userInfo![kUSERID] as! String
+            UserDefaults.standard.set(userID, forKey: kUSERID)
+            UserDefaults.standard.synchronize()
+            print(userID)
+            UserDidLogin(userId: userID)
+        }
+        
+        OneSignal.initWithLaunchOptions(launchOptions, appId: kONESIGNALAPPID)
         
         return true
     }
@@ -100,6 +116,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         coordinates = locations.last!.coordinate
     }
     
+    //puah noti
+    func StartOneSignal(){
+        let status:OSPermissionSubscriptionState = OneSignal.getPermissionSubscriptionState()
+        let userID = status.subscriptionStatus.userId
+        let pushToken = status.subscriptionStatus.pushToken
+        
+        if pushToken != nil{
+            if let playerId = userID{
+                UserDefaults.standard.set(playerId, forKey: kPUSHID)
+            }else{
+                UserDefaults.standard.removeObject(forKey: kPUSHID)
+            }
+            UserDefaults.standard.synchronize()
+        }
+        //Upadte onesignal
+        updateOneSignalId()
+    }
+    
     ////////////////////////////////////////
 
     //MARK: - Delegate functions
@@ -112,6 +146,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        //update user online status
+        if FUser.currentUser() != nil{
+            updateCurrentUserInFirestore(withValues: [kISONLINE:false]) { (success) in
+                
+            }
+        }
+        
         LocationManagerStop()
     }
 
@@ -121,6 +163,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        //update user online status
+        if FUser.currentUser() != nil{
+            updateCurrentUserInFirestore(withValues: [kISONLINE:true]) { (success) in
+                
+            }
+        }
+        
         LocationManagerStart()
     }
 

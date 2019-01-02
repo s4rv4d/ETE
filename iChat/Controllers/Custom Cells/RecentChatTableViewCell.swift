@@ -70,6 +70,9 @@ class RecentChatTableViewCell: UITableViewCell {
         self.dateLabel.text = timeElapsed(date: date)
         //for avatar
         if let avatarString = recentChat[kAVATAR]{
+            
+            print(avatarString as! String)
+            
             imageFromData(pictureData: avatarString as! String) { (image) in
                 if image != nil{
                     self.profilePicImageview.image = image!.circleMasked

@@ -18,5 +18,11 @@ target 'iChat' do
 	pod 'IDMPhotoBrowser'
 	pod 'ImagePicker'
 	pod 'RNCryptor'
+	pod 'OneSignal'
 
+end
+
+target 'OneSignalNotificationServiceExtension' do
+	use_frameworks!
+  	pod 'OneSignal'
 end

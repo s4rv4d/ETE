@@ -98,11 +98,11 @@ class GroupCreateViewController: UIViewController {
             //add current user to group
             //keep in mind only user ids is used to create chat notb FUser
             memberIds.append(FUser.currentId())
-            var avatarData = UIImage(named:"groupIcon")?.jpegData(compressionQuality: 0.7)
+            var avatarData = UIImage(named:"groupIcon")?.jpegData(compressionQuality: 0.4)
             var avatar = avatarData?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
             
             if groupIcon != nil{
-                 avatarData = groupIcon!.jpegData(compressionQuality: 0.7)!
+                 avatarData = groupIcon!.jpegData(compressionQuality: 0.4)!
                 avatar = avatarData!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
             }
             
