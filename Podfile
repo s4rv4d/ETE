@@ -19,6 +19,7 @@ target 'iChat' do
 	pod 'ImagePicker'
 	pod 'RNCryptor'
 	pod 'OneSignal'
+	pod 'SinchRTC'
 
 end
 

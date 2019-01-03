@@ -82,9 +82,11 @@ class EditProfileTableViewController: UITableViewController {
             var withValues = [kFIRSTNAME:nameTextField.text!,kLASTNAME:surnametextField.text!,kFULLNAME:fullname]
             
             if avatarImage != nil{
-                let avatarData = avatarImage!.jpegData(compressionQuality: 0.4)!
+                let avatarData = avatarImage!.jpegData(compressionQuality: 0.7)!
                 let avatarString = avatarData.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
                 withValues[kAVATAR] = avatarString
+                
+                print("chosssss \(avatarString)")
             }
                         
             //update firebase
@@ -132,6 +134,7 @@ extension EditProfileTableViewController: ImagePickerDelegate{
     func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
         
         if images.count > 0{
+            print("chooseddadasdasdas \(images.first!)")
             self.avatarImage = images.first!
             self.profileImageView.image = self.avatarImage!.circleMasked
         }

@@ -21,6 +21,7 @@ class ProfilePageTableViewController: UITableViewController {
     
     //MARK:Variables
     var user:FUser?
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +57,11 @@ class ProfilePageTableViewController: UITableViewController {
     //MARK:IBActions
     @IBAction func CallButtonTapped(_ sender: UIButton) {
         print("call button tapped for user \(user!.fullname)")
+        //call user
+        CallUser()
+        let currentUser = FUser.currentUser()!
+        let call = Call(_callerID: currentUser.objectId, _withUserId: user!.objectId, _callerFullName: currentUser.fullname, _withUserFullName: user!.fullname)
+        call.SaveCallInBackground()
     }
     @IBAction func MessageButtonPressed(_ sender: UIButton) {
         print("message button pressed for user \(user!.fullname)")
@@ -142,6 +148,19 @@ class ProfilePageTableViewController: UITableViewController {
         }else{
             blockUserButtonOutlet.setTitle("Block User", for: .normal)
         }
+    }
+    
+    //MARK: - Call
+    func CallUser(){
+        let userToCall = user!.objectId
+        let call = CallClient().callUser(withId: userToCall)
+        let callVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "call") as! CallViewController
+        callVC._call = call!
+        self.present(callVC, animated: true, completion: nil)
+    }
+    
+    func CallClient() -> SINCallClient{
+        return appDelegate._client.call()
     }
 
 }

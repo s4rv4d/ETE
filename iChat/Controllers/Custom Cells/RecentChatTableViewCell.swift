@@ -71,11 +71,17 @@ class RecentChatTableViewCell: UITableViewCell {
         //for avatar
         if let avatarString = recentChat[kAVATAR]{
             
-            print(avatarString as! String)
+//            print(avatarString as! String)
             
             imageFromData(pictureData: avatarString as! String) { (image) in
                 if image != nil{
-                    self.profilePicImageview.image = image!.circleMasked
+                    print("here")
+                    
+                    DispatchQueue.main.async {
+                        self.profilePicImageview.image = image!.circleMasked
+                    }
+                    
+                    
                 }
             }
         }

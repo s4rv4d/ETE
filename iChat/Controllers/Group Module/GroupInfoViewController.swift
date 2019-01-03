@@ -63,7 +63,7 @@ class GroupInfoViewController: UIViewController {
             return
         }
         
-        let avatarData = groupIconView.image?.jpegData(compressionQuality: 0.4)
+        let avatarData = groupIconView.image?.jpegData(compressionQuality: 0.7)
         let avatarString = avatarData?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
         
         withValues = [kNAME:groupNameTextfield.text!,kAVATAR:avatarString!]

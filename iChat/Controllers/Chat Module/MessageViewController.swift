@@ -63,6 +63,7 @@ class MessageViewController:  JSQMessagesViewController{
     var isGroup:Bool?
     var group:NSDictionary?
     var withUser:[FUser] = []
+    var recentID:String!
     
     //nav var stuff
     var titleName:String!
@@ -156,6 +157,8 @@ class MessageViewController:  JSQMessagesViewController{
         //custom send button
         self.inputToolbar.contentView.rightBarButtonItem.setImage(UIImage(named: "mic"), for: .normal)
         self.inputToolbar.contentView.rightBarButtonItem.setTitle("", for: .normal)
+        
+        
     }
     
     //MARK: - JSQ Datasource functions
@@ -859,6 +862,17 @@ class MessageViewController:  JSQMessagesViewController{
         
         getUsersFromFirestore(withIds: memberids) { (withUsers) in
             self.withUser = withUsers
+            
+            for user in self.withUser{
+                if FUser.currentUser()!.objectId != user.objectId{
+                    print("recent id: \(self.recentID)")
+                    print("avatar: \(user.avatar)")
+                    
+                    
+                    UpdateRecent(recentID: self.recentID!, withValues: [kAVATAR:user.avatar])
+                }
+            }
+            
             //get avatars
             self.GetAvatarImages()
             

@@ -30,7 +30,18 @@ class PastCallsTableViewCell: UITableViewCell {
 
     //MARK: - Functions
     func CellGenerate(call:Call){
-//        dateLabel.text
+        dateLabel.text = formatCallTime(date: call.callDate)
+        statusLabel.text = ""
+        
+        if call.callerID == FUser.currentId(){
+            statusLabel.text = "Outgoing"
+            fullNameLabel.text = call.withUserFullName
+//            avatarImagview.image = UIImage(named: "Outgoing")
+        }else{
+            statusLabel.text = "Incoming"
+            fullNameLabel.text = call.callerFullName
+//            avatarImagview.image = UIImage(named: "Incoming")
+        }
     }
     
 }

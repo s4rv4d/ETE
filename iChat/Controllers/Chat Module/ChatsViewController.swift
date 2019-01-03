@@ -106,6 +106,7 @@ extension ChatsViewController:UITableViewDelegate,UITableViewDataSource{
         messageVC.memberToPush = (recent[kMEMBERSTOPUSH] as? [String])!
         messageVC.memberids = (recent[kMEMBERS] as? [String])!
         messageVC.chatRoomId = (recent[kCHATROOMID] as? String)!
+        messageVC.recentID = (recent[kRECENTID] as? String)!
         //nav bat updates
         messageVC.titleName = (recent[kWITHUSERFULLNAME] as? String)!
         //checking if group or not
@@ -163,6 +164,10 @@ extension ChatsViewController:UITableViewDelegate,UITableViewDataSource{
                 //parse through all messages
                 for recent in sorted{
                     if recent[kLASTMESSAGE] as! String != "" && recent[kCHATROOMID] != nil && recent[kRECENTID] != nil{
+                        
+                        //update user image access the user image from recent then access user
+                        //recent[kavatar] = new avatar url
+ 
                         self.recentChats.append(recent)
                     }
                 }

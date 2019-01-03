@@ -102,7 +102,7 @@ class GroupCreateViewController: UIViewController {
             var avatar = avatarData?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
             
             if groupIcon != nil{
-                 avatarData = groupIcon!.jpegData(compressionQuality: 0.4)!
+                 avatarData = groupIcon!.jpegData(compressionQuality: 0.7)!
                 avatar = avatarData!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
             }
             
