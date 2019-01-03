@@ -22,6 +22,7 @@ class EditProfileTableViewController: UITableViewController {
     
     //MARK: - Variables
     var avatarImage:UIImage?
+    let imgPickerController = ImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +80,7 @@ class EditProfileTableViewController: UITableViewController {
             
             //edits
             let fullname = nameTextField.text! + " " + surnametextField.text!
-            var withValues = [kFIRSTNAME:nameTextField.text!,kLASTNAME:surnametextField.text!,kFULLNAME:fullname]
+            var withValues = [kFIRSTNAME:nameTextField.text!,kLASTNAME:surnametextField.text!,kFULLNAME:fullname,kEMAIL:emailTextField.text!]
             
             if avatarImage != nil{
                 let avatarData = avatarImage!.jpegData(compressionQuality: 0.7)!
@@ -111,7 +112,6 @@ class EditProfileTableViewController: UITableViewController {
     
     @IBAction func AvatarTapped(_ sender: UITapGestureRecognizer) {
         print("show image picker")
-        let imgPickerController = ImagePickerController()
         imgPickerController.delegate = self
         imgPickerController.imageLimit = 1
         
@@ -127,8 +127,10 @@ extension EditProfileTableViewController: ImagePickerDelegate{
     
     func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
         //do nothing here, just dismiss
-//        self.dismiss(animated: true, completion: nil)
-        print("open gallery")
+        print("hererere")
+        //camera class instance
+        let camera = Camera(delegate_: self)
+        camera.PresentPhotoLibrary(target: self.imgPickerController, canEdit: true)
     }
     
     func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
@@ -146,6 +148,17 @@ extension EditProfileTableViewController: ImagePickerDelegate{
         //do nothing here, just dismiss
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
+}
+
+extension EditProfileTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        let picture = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        self.avatarImage = picture
+        self.profileImageView.image = self.avatarImage!.circleMasked
+        //        picker.dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true) {
+            self.imgPickerController.dismiss(animated: true, completion: nil)
+        }
+    }
 }

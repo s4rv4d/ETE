@@ -46,6 +46,21 @@ class WelcomeViewController: UIViewController {
         dismisskeyboard()
     }
     
+    @IBAction func RegPhone(_ sender: UIButton) {
+        //dismisss progress hud
+        ProgressHUD.dismiss()
+        //clean textfields
+        clearKeyboard()
+        dismisskeyboard()
+
+        //initialize a storyboard
+        let mainView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "phone") as! PhoneNumberViewController
+        
+        //presenting it
+        self.present(mainView, animated: true, completion: nil)
+    }
+    
+    
     //MARK:Helper Functions
     func dismisskeyboard(){
         self.view.endEditing(false)
@@ -65,6 +80,7 @@ class WelcomeViewController: UIViewController {
                 ProgressHUD.showError(error!.localizedDescription)
                 return
             }
+            print("here 0")
             //present app
             self.GotoApp()
         }

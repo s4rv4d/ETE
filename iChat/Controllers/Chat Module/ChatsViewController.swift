@@ -23,6 +23,8 @@ class ChatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //navigation bar setup
+        print("curr is \(FUser.currentId())")
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         //seearch setup
         navigationItem.searchController = searchController

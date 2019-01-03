@@ -24,6 +24,7 @@ class GroupCreateViewController: UIViewController {
     var memberIds:[String] = []
     var allMembers:[FUser] = []
     var groupIcon:UIImage?
+    let imgPickerController = ImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,13 +47,12 @@ class GroupCreateViewController: UIViewController {
         let optionMenu = UIAlertController(title: "Choose Group Icon", message: nil, preferredStyle: .actionSheet)
         let takePhoto = UIAlertAction(title: "Take/Choose Photo", style: .default) { (action) in
             print("camera")
-            let imgPickerController = ImagePickerController()
-            imgPickerController.delegate = self
-            imgPickerController.imageLimit = 1
+            self.imgPickerController.delegate = self
+            self.imgPickerController.imageLimit = 1
             
             //dismiss keyboard
             self.dismissKeyboard()
-            self.present(imgPickerController, animated: true, completion: nil)
+            self.present(self.imgPickerController, animated: true, completion: nil)
             
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -177,7 +177,10 @@ extension GroupCreateViewController: ImagePickerDelegate{
     
     func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
         //do nothing here, just dismiss
-        self.dismiss(animated: true, completion: nil)
+        print("hererere")
+        //camera class instance
+        let camera = Camera(delegate_: self)
+        camera.PresentPhotoLibrary(target: self.imgPickerController, canEdit: true)
     }
     
     func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
@@ -197,6 +200,17 @@ extension GroupCreateViewController: ImagePickerDelegate{
         //do nothing here, just dismiss
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
+}
+
+extension GroupCreateViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        let picture = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        self.groupIcon = picture
+        self.groupIconImageView.image = self.groupIcon!.circleMasked
+        //        picker.dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true) {
+            self.imgPickerController.dismiss(animated: true, completion: nil)
+        }
+    }
 }

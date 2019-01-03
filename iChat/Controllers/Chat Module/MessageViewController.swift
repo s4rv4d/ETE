@@ -865,11 +865,14 @@ class MessageViewController:  JSQMessagesViewController{
             
             for user in self.withUser{
                 if FUser.currentUser()!.objectId != user.objectId{
-                    print("recent id: \(self.recentID)")
-                    print("avatar: \(user.avatar)")
-                    
-                    
-                    UpdateRecent(recentID: self.recentID!, withValues: [kAVATAR:user.avatar])
+                    if self.recentID != nil{
+                        if self.isGroup == false{
+                            print("recent id: \(self.recentID)")
+                            print("avatar: \(user.avatar)")
+                            UpdateRecent(recentID: self.recentID!, withValues: [kAVATAR:user.avatar])
+                        }
+                        
+                    }
                 }
             }
             

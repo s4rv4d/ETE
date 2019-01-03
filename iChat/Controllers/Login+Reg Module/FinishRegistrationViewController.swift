@@ -28,12 +28,14 @@ class FinishRegistrationViewController: UIViewController {
     var email:String!
     var password:String!
     var avatarImage:UIImage?
+    var type:String = ""
+    let imgPickerController = ImagePickerController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //just to test
-        print("email: ",email!)
-        print("password: ",password!)
+//        print("email: ",email!)
+//        print("password: ",password!)
         
         avatarImageView.isUserInteractionEnabled = true
         avatarImageView.addGestureRecognizer(imgViewTap)
@@ -41,7 +43,7 @@ class FinishRegistrationViewController: UIViewController {
 
     //MARK:IBActions
     @IBAction func AvatarTapped(_ sender: UITapGestureRecognizer) {
-        let imgPickerController = ImagePickerController()
+        
         imgPickerController.delegate = self
         imgPickerController.imageLimit = 1
         
@@ -69,14 +71,19 @@ class FinishRegistrationViewController: UIViewController {
         
         //exeception
         if nameTextfield.text != "" && surnameTextfield.text != "" && countryTextfield.text != "" && cityTextfield.text != "" && phoneTextfield.text != ""{
-            FUser.registerUserWith(email: email!, password: password!, firstName: nameTextfield.text!, lastName: surnameTextfield.text!) { (error) in
-                if error != nil{
-                    ProgressHUD.dismiss()
-                    ProgressHUD.showError(error!.localizedDescription)
-                    return
-                }
-                
+            
+            if type == "phone"{
                 self.RegisterUser()
+            }else{
+                FUser.registerUserWith(email: email!, password: password!, firstName: nameTextfield.text!, lastName: surnameTextfield.text!) { (error) in
+                    if error != nil{
+                        ProgressHUD.dismiss()
+                        ProgressHUD.showError(error!.localizedDescription)
+                        return
+                    }
+                    
+                    self.RegisterUser()
+                }
             }
         }else{
             ProgressHUD.showError("All fields are required")
@@ -115,7 +122,7 @@ class FinishRegistrationViewController: UIViewController {
                 
                 //to store to firestore convert avatarInitial to Data
 //                let avatarIMG = UIImageJPEGRepresentation(avatarInitial, 0.7)
-                let avatarIMG = avatarInitial.jpegData(compressionQuality: 0.4)
+                let avatarIMG = avatarInitial.jpegData(compressionQuality: 0.7)
                 //converting data to string for firestore
                 let avatarString = avatarIMG!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
                 
@@ -171,7 +178,10 @@ extension FinishRegistrationViewController: ImagePickerDelegate{
     
     func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
         //do nothing here, just dismiss
-        self.dismiss(animated: true, completion: nil)
+        print("hererere")
+        //camera class instance
+        let camera = Camera(delegate_: self)
+        camera.PresentPhotoLibrary(target: self.imgPickerController, canEdit: true)
     }
     
     func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
@@ -190,4 +200,17 @@ extension FinishRegistrationViewController: ImagePickerDelegate{
     }
     
     
+}
+
+extension FinishRegistrationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        let picture = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        self.avatarImage = picture
+        self.avatarImageView.image = self.avatarImage!.circleMasked
+//        picker.dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true) {
+            self.imgPickerController.dismiss(animated: true, completion: nil)
+        }
+    }
 }

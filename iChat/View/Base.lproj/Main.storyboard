@@ -10,6 +10,106 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Phone Number View Controller-->
+        <scene sceneID="baE-Kg-3Yl">
+            <objects>
+                <viewController storyboardIdentifier="phone" id="Mww-Ky-TSb" customClass="PhoneNumberViewController" customModule="iChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OYu-Nt-wJj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9n-mQ-eHf" userLabel="yo">
+                                <rect key="frame" x="0.0" y="242.5" width="375" height="182"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="z1G-it-B8M">
+                                        <rect key="frame" x="16" y="31" width="343" height="120"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ukt-D2-WmG">
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="+91" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rcX-zh-3fv">
+                                                        <rect key="frame" x="0.0" y="0.0" width="58" height="30"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="58" id="7td-uv-M7m"/>
+                                                        </constraints>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HHL-1e-9mx">
+                                                        <rect key="frame" x="66" y="0.0" width="277" height="30"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="eus-im-XRx">
+                                                <rect key="frame" x="0.0" y="45" width="343" height="75"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Verification code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6AD-3n-DwE">
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YIO-CX-3v5">
+                                                        <rect key="frame" x="0.0" y="45" width="343" height="30"/>
+                                                        <color key="backgroundColor" red="0.2540222406" green="0.60713309049999997" blue="0.96950680020000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="86f-p4-adD"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <state key="normal" title="Request">
+                                                            <color key="titleColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="VeriTapped:" destination="Mww-Ky-TSb" eventType="touchUpInside" id="Lkw-c7-zrq"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="eus-im-XRx" firstAttribute="leading" secondItem="z1G-it-B8M" secondAttribute="leading" id="D3N-0r-O0E"/>
+                                            <constraint firstItem="ukt-D2-WmG" firstAttribute="leading" secondItem="z1G-it-B8M" secondAttribute="leading" id="QZM-0K-WPs"/>
+                                            <constraint firstAttribute="trailing" secondItem="eus-im-XRx" secondAttribute="trailing" id="VZ3-yB-16e"/>
+                                            <constraint firstAttribute="trailing" secondItem="ukt-D2-WmG" secondAttribute="trailing" id="mfY-8i-9py"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="z1G-it-B8M" secondAttribute="trailing" constant="16" id="04n-P7-Gpa"/>
+                                    <constraint firstAttribute="width" constant="375" id="OoW-1R-t1x"/>
+                                    <constraint firstAttribute="height" constant="182" id="PV1-ou-zh2"/>
+                                    <constraint firstAttribute="bottom" secondItem="z1G-it-B8M" secondAttribute="bottom" constant="31" id="W2L-jQ-ZOD"/>
+                                    <constraint firstItem="z1G-it-B8M" firstAttribute="top" secondItem="a9n-mQ-eHf" secondAttribute="top" constant="31" id="Ybp-gE-RBR"/>
+                                    <constraint firstItem="z1G-it-B8M" firstAttribute="leading" secondItem="a9n-mQ-eHf" secondAttribute="leading" constant="16" id="b9v-QN-YgP"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="a9n-mQ-eHf" firstAttribute="centerY" secondItem="OYu-Nt-wJj" secondAttribute="centerY" id="dk9-gF-OCa"/>
+                            <constraint firstItem="a9n-mQ-eHf" firstAttribute="centerX" secondItem="OYu-Nt-wJj" secondAttribute="centerX" id="qMd-eY-bz7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="y4G-jO-ej1"/>
+                    </view>
+                    <connections>
+                        <outlet property="countryCodeTextField" destination="rcX-zh-3fv" id="fsl-bz-lba"/>
+                        <outlet property="mobileNoTextField" destination="HHL-1e-9mx" id="XQz-hU-UhO"/>
+                        <outlet property="requestButtonOutlet" destination="YIO-CX-3v5" id="b54-9T-4uc"/>
+                        <outlet property="veriCodeTextField" destination="6AD-3n-DwE" id="9ax-ay-oD0"/>
+                        <segue destination="hXd-Op-NlH" kind="presentation" identifier="reg" id="ZNc-mO-dRB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4tm-V9-VzQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1333.5999999999999" y="915.29235382308855"/>
+        </scene>
         <!--Welcome View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -96,13 +196,28 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rQ-Bb-Kwd">
+                                <rect key="frame" x="46.5" y="481" width="282" height="30"/>
+                                <color key="backgroundColor" red="0.2540222406" green="0.60713309049999997" blue="0.96950680020000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="282" id="Tdw-sq-jrs"/>
+                                </constraints>
+                                <state key="normal" title="Phone">
+                                    <color key="titleColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="RegPhone:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HRC-nv-bxc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="t7G-H1-8GX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="22" id="4s9-Sr-RaM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="t7G-H1-8GX" secondAttribute="trailing" constant="16" id="7gn-xs-VgH"/>
+                            <constraint firstItem="6rQ-Bb-Kwd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UNl-2z-LAn"/>
                             <constraint firstItem="t7G-H1-8GX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="aR1-oA-j1N"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6rQ-Bb-Kwd" secondAttribute="bottom" constant="156" id="oM2-8g-QIx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <connections>
@@ -123,7 +238,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-690" y="111"/>
+            <point key="canvasLocation" x="-690.39999999999998" y="110.19490254872565"/>
         </scene>
         <!--Finish Registration View Controller-->
         <scene sceneID="e5k-xC-1le">
@@ -2096,4 +2211,7 @@
         <image name="settings" width="37.5" height="37.5"/>
         <image name="speaker" width="250" height="250"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="rkO-f2-NKF"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -183,6 +183,7 @@ class UsersTableViewController: UITableViewController {
             if !snapshot.isEmpty{
                 for userDict in snapshot.documents{
                     let userDictionary = userDict.data() as NSDictionary
+                    print("herere \(userDictionary)")
                     let fuser = FUser(_dictionary: userDictionary)
                     
                     if fuser.objectId != FUser.currentId(){
@@ -206,6 +207,8 @@ class UsersTableViewController: UITableViewController {
             //access the user
             let currentUser = self.allUsers[i]
             //acces the first character
+            print("curr \(currentUser.phoneNumber)")
+            print("sasasas",currentUser.firstname)
             let firstCharacter = currentUser.firstname.first!
             //convert character to string
             let firstCharacterToString = String(firstCharacter)

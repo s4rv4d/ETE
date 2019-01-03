@@ -146,7 +146,9 @@ class FUser {
     
     class func currentUser () -> FUser? {
         if Auth.auth().currentUser != nil {
+            print("here 3")
             if let dictionary = UserDefaults.standard.object(forKey: kCURRENTUSER) {
+                print("here 4")
                 return FUser.init(_dictionary: dictionary as! NSDictionary)
             }
         }
@@ -157,15 +159,20 @@ class FUser {
     
     //MARK: Login function
     class func loginUserWith(email: String, password: String, completion: @escaping (_ error: Error?) -> Void) {
+        print("here -1")
         Auth.auth().signIn(withEmail: email, password: password, completion: { (firUser, error) in
             if error != nil {
                 completion(error)
                 return
-                
             } else {
-                //get user from firebase and save locally
-                fetchCurrentUserFromFirestore(userId: firUser!.user.uid)
-                completion(error)
+                DispatchQueue.main.async {
+                    //get user from firebase and save locally
+//                    fetchCurrentUserFromFirestore(userId: firUser!.user.uid)
+                    fetchCurrentUserFromFirestore(userId: firUser!.user.uid, end: { (result) in
+                        completion(error)
+                    })
+                    
+                }
             }
         })
     }
@@ -185,31 +192,31 @@ class FUser {
         })
         
     }
-//    //phoneNumberRegistration
-//    class func registerUserWith(phoneNumber: String, verificationCode: String, verificationId: String!, completion: @escaping (_ error: Error?, _ shouldLogin: Bool) -> Void) {
-//        let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationId, verificationCode: verificationCode)
-//        Auth.auth().signInAndRetrieveData(with: credential) { (firuser, error) in
-//            if error != nil {
-//                completion(error!, false)
-//                return
-//            }
-//            //check if user exist - login else register
-//            fetchCurrentUserFromFirestore(userId: firuser!.user.uid, completion: { (user) in
-//                if user != nil && user!.firstname != "" {
-//                    //we have user, login
-//                    saveUserLocally(fUser: user!)
-//                    saveUserToFirestore(fUser: user!)
-//                    completion(error, true)
-//                } else {
-//                    //    we have no user, register
-//                    let fUser = FUser(_objectId: firuser!.user.uid, _pushId: "", _createdAt: Date(), _updatedAt: Date(), _email: "", _firstname: "", _lastname: "", _avatar: "", _loginMethod: kPHONE, _phoneNumber: firuser!.user.phoneNumber!, _city: "", _country: "")
-//                    saveUserLocally(fUser: fUser)
-//                    saveUserToFirestore(fUser: fUser)
-//                    completion(error, false)
-//                }
-//            })
-//        }
-//    }
+    //phoneNumberRegistration
+    class func registerUserWith(phoneNumber: String, verificationCode: String, verificationId: String!, completion: @escaping (_ error: Error?, _ shouldLogin: Bool) -> Void) {
+        let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationId, verificationCode: verificationCode)
+        Auth.auth().signInAndRetrieveData(with: credential) { (firuser, error) in
+            if error != nil {
+                completion(error!, false)
+                return
+            }
+            //check if user exist - login else register
+            fetchCurrentUserFromFirestore(userId: firuser!.user.uid, completion: { (user) in
+                if user != nil && user!.firstname != "" {
+                    //we have user, login
+                    saveUserLocally(fUser: user!)
+                    saveUserToFirestore(fUser: user!)
+                    completion(error, true)
+                } else {
+                    //    we have no user, register
+                    let fUser = FUser(_objectId: firuser!.user.uid, _pushId: "", _createdAt: Date(), _updatedAt: Date(), _email: "", _firstname: "", _lastname: "", _avatar: "", _loginMethod: kPHONE, _phoneNumber: firuser!.user.phoneNumber!, _city: "", _country: "")
+                    saveUserLocally(fUser: fUser)
+                    saveUserToFirestore(fUser: fUser)
+                    completion(error, false)
+                }
+            })
+        }
+    }
     
     
     //MARK: LogOut func
@@ -251,13 +258,14 @@ func saveUserLocally(fUser: FUser) {
 }
 
 //MARK: Fetch User funcs
-func fetchCurrentUserFromFirestore(userId: String) {
+func fetchCurrentUserFromFirestore(userId: String,end:@escaping(String) ->Void) {
     reference(.User).document(userId).getDocument { (snapshot, error) in
         guard let snapshot = snapshot else {  return }
         if snapshot.exists {
             print("updated current users param")
             UserDefaults.standard.setValue(snapshot.data() as! NSDictionary, forKeyPath: kCURRENTUSER)
             UserDefaults.standard.synchronize()
+            end("go")
         }
     }
 }
@@ -332,8 +340,12 @@ func updateCurrentUserInFirestore(withValues : [String : Any], completion: @esca
 
 //MARK: OneSignal
 func updateOneSignalId() {
+    print("here next 1")
+//    print(FUser.currentUser()!.objectId)
     if FUser.currentUser() != nil {
+        print("here next 2")
         if let pushId = UserDefaults.standard.string(forKey: kPUSHID) {
+            print("log se \(pushId)")
             setOneSignalId(pushId: pushId)
         } else {
             removeOneSignalId()
