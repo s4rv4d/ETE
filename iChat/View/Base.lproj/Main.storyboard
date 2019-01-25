@@ -32,17 +32,21 @@
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="58" id="7td-uv-M7m"/>
+                                                            <constraint firstAttribute="height" constant="30" id="igV-cR-Mgv"/>
                                                         </constraints>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HHL-1e-9mx">
                                                         <rect key="frame" x="66" y="0.0" width="277" height="30"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="trL-iK-EPD"/>
+                                                        </constraints>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -53,7 +57,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YIO-CX-3v5">
                                                         <rect key="frame" x="0.0" y="45" width="343" height="30"/>
@@ -85,8 +89,7 @@
                                     <constraint firstAttribute="trailing" secondItem="z1G-it-B8M" secondAttribute="trailing" constant="16" id="04n-P7-Gpa"/>
                                     <constraint firstAttribute="width" constant="375" id="OoW-1R-t1x"/>
                                     <constraint firstAttribute="height" constant="182" id="PV1-ou-zh2"/>
-                                    <constraint firstAttribute="bottom" secondItem="z1G-it-B8M" secondAttribute="bottom" constant="31" id="W2L-jQ-ZOD"/>
-                                    <constraint firstItem="z1G-it-B8M" firstAttribute="top" secondItem="a9n-mQ-eHf" secondAttribute="top" constant="31" id="Ybp-gE-RBR"/>
+                                    <constraint firstItem="z1G-it-B8M" firstAttribute="centerY" secondItem="a9n-mQ-eHf" secondAttribute="centerY" id="YQJ-gm-ix2"/>
                                     <constraint firstItem="z1G-it-B8M" firstAttribute="leading" secondItem="a9n-mQ-eHf" secondAttribute="leading" constant="16" id="b9v-QN-YgP"/>
                                 </constraints>
                             </view>
@@ -336,7 +339,7 @@
                                         <rect key="frame" x="0.0" y="152" width="343" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -2212,6 +2215,6 @@
         <image name="speaker" width="250" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rkO-f2-NKF"/>
+        <segue reference="ZNc-mO-dRB"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -18,10 +18,10 @@ public let USER_DID_LOGIN_NOTIFICATION = "UserDidLoginNotification"
 public let APP_STARTED_NOTIFICATION = "AppStartedNotification"
 
 //IDS and Keys
-public let kFILEREFERENCE = "gs://flash-chat-967cc.appspot.com/"
-public let kONESIGNALAPPID = "3652bb2d-704a-4804-9b36-be959249b3f8"
-public let kSINCHKEY = "e9193a75-3327-44b4-ad32-faeb4fc27128"
-public let kSINCHSECRET = "32Q5JgxaRUG2rm4wuwLvUQ=="
+public let kFILEREFERENCE = ""
+public let kONESIGNALAPPID = ""
+public let kSINCHKEY = ""
+public let kSINCHSECRET = ""
 public let kAPPURL = "App link"
 
 //Firebase Headers
